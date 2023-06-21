@@ -108,7 +108,7 @@ namespace ShareX.ScreenCaptureLib
 
             tsMain.SuspendLayout();
 
-            menuForm.Controls.Add(tsMain);
+            // menuForm.Controls.Add(tsMain);
 
             if (Form.IsFullscreen)
             {

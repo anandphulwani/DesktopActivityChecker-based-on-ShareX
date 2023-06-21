@@ -71,7 +71,7 @@ namespace ShareX
         {
             if (autoHideForm && AllowAutoHideForm)
             {
-                Program.MainForm.Hide();
+                // Program.MainForm.Hide();
                 Thread.Sleep(250);
             }
 

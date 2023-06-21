@@ -38,7 +38,7 @@ using System.Windows.Forms;
 
 namespace ShareX
 {
-    internal static class SettingManager
+    public static class SettingManager
     {
         private const string ApplicationConfigFileName = "ApplicationConfig.json";
 

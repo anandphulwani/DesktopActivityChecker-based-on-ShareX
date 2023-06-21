@@ -1564,6 +1564,16 @@ namespace ShareX.ScreenCaptureLib
             return null;
         }
 
+        public Rectangle GetCoordsOfSelection()
+        {
+            GraphicsPath gp;
+            gp = regionFillPath;
+            using (Bitmap bmp = RegionCaptureTasks.ApplyRegionPathToImage(Canvas, gp, out Rectangle rect))
+            {
+                return rect;
+            }
+        }
+
         private Bitmap ReceiveImageForTask()
         {
             Bitmap bmp = GetResultImage();
