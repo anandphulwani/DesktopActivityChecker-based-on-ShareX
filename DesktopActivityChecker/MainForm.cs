@@ -226,6 +226,12 @@ namespace DesktopActivityChecker
                 return false;
             }
 
+            if ( Convert.ToInt32(entrySleepBetweenCaptures.Text) * Convert.ToInt32(entryCapturePerInterval.Text) > Convert.ToInt32(entryRepeatTime.Text)*1000 )
+            {
+                MessageBox.Show("'Sleep between captures' * 'Capture per interval' is greater then 'Repeat Time'. Another run will occur before all captures completes.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return false;
+            }
+
             if (!ValidateUrl())
             {
                 MessageBox.Show("Invalid POST request URL!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
