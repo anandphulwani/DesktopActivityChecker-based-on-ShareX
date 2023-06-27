@@ -11,6 +11,7 @@ using System.Threading;
 using ShareX.HelpersLib;
 using System.Drawing.Imaging;
 using System.Threading.Tasks;
+using System.Linq;
 
 namespace DesktopActivityChecker
 {
@@ -819,13 +820,76 @@ namespace DesktopActivityChecker
                     }
                     else if (formData.ComparisonOption == "Check pixel color present")
                     {
+                        bool isFirstRun = true;
                         callback = state =>
                         {
-                            // Console.WriteLine($"Executing operation: {record.Operation}");
+                            if (isFirstRun == true)
+                            {
+                                isFirstRun = false;
+                                return;
+                            }
+                            bool isAlert = false;
+                            int noOfValidCaptures = 0;
+                            for (int i = 0; i < formData.CapturePerInterval; i++)
+                            {
+                                String[] colors = entryComparisonValue.Text.Split(',');
+                                int timeout = formData.SleepBetweenCaptures > 200 ? (formData.SleepBetweenCaptures / 2 > 2000 ? formData.SleepBetweenCaptures - 2000 : formData.SleepBetweenCaptures / 2) : 100;
+                                Image newImage = getImageFromCoordinatesOfFormData(formData, timeout);
+
+                                Bitmap bitmap = new Bitmap(newImage);
+                                Color referenceColor = bitmap.GetPixel(0, 0);
+                                bool isAllColorFound = false;
+                                for (int y = 0; y < bitmap.Height; y++)
+                                {
+                                    for (int x = 0; x < bitmap.Width; x++)
+                                    {
+                                        String pixelColor = bitmap.GetPixel(x, y).ToString();
+                                        if (Array.IndexOf(colors, pixelColor) != -1)
+                                        {
+                                            if (formData.MatchCaptures == "Any")
+                                            {
+                                                isAllColorFound = true;
+                                                goto endOfOuterLoop;
+                                            }
+                                            if (formData.MatchCaptures == "All")
+                                            {
+                                                List<String> colorsList = colors.ToList();
+                                                colorsList.Remove(pixelColor);
+                                                colors = colorsList.ToArray();
+                                                if (colors.Length == 0)
+                                                {
+                                                    isAllColorFound = true;
+                                                    goto endOfOuterLoop;
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                                endOfOuterLoop:
+                                if ((formData.WaitFor == "Present" && isAllColorFound) || (formData.WaitFor == "Not Present" && !isAllColorFound))
+                                {
+                                    if (formData.MatchCaptures == "Any")
+                                    {
+                                        isAlert = true;
+                                        break;
+                                    }
+                                    noOfValidCaptures++;
+                                }
+                                Thread.Sleep(formData.SleepBetweenCaptures);
+                            }
+                            if (formData.MatchCaptures == "All" && noOfValidCaptures == formData.CapturePerInterval)
+                            {
+                                isAlert = true;
+                            }
+                            if (isAlert)
+                            {
+                                // Alert via ntfy.sh here
+                                MessageBox.Show("Time to alert now, condition met in `Check pixel color present`:`" + formData.WaitFor + "`," +
+                                    "Captures Per Interval: `" + formData.CapturePerInterval + "`, Matching: `" + formData.MatchCaptures + "`", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                timer.Dispose();
+                            }
                         };
-                        /* Image originalImage = getImageFromCoordinatesOfFormData(formData);
-                        TimeSpan delay = TimeSpan.FromSeconds(formData.RepeatTime);
-                        System.Threading.Timer timer = new System.Threading.Timer(callback, null, TimeSpan.Zero, delay); */
+                        timer = new System.Threading.Timer(callback, null, TimeSpan.Zero, TimeSpan.FromSeconds(formData.RepeatTime));
                     }
                     else if (formData.ComparisonOption == "Check same color background")
                     {
