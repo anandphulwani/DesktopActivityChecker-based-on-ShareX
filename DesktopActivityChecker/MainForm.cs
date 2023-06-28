@@ -844,7 +844,11 @@ namespace DesktopActivityChecker
                             MessageBox.Show("form.Result: "+ result, "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
                             timer.Change(TimeSpan.FromSeconds(formData.RepeatTime), Timeout.InfiniteTimeSpan);
                         };
-                        timer = new System.Threading.Timer(callback, null, TimeSpan.Zero, TimeSpan.FromSeconds(formData.RepeatTime));
+                        new Thread(() =>
+                        {
+                            Thread.Sleep((5 + (int)Math.Round(formData.Id * 1.5)) * 1000);
+                            timer = new System.Threading.Timer(callback, null, TimeSpan.Zero, TimeSpan.FromSeconds(formData.RepeatTime));
+                        }).Start();
                     }
                     else if (formData.ComparisonOption == "Check pixel color present")
                     {
@@ -917,7 +921,11 @@ namespace DesktopActivityChecker
                                     "Captures Per Interval: `" + formData.CapturePerInterval + "`, Matching: `" + formData.MatchCaptures + "`", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
                             }
                         };
-                        timer = new System.Threading.Timer(callback, null, TimeSpan.Zero, TimeSpan.FromSeconds(formData.RepeatTime));
+                        new Thread(() =>
+                        {
+                            Thread.Sleep((5 + (int)Math.Round(formData.Id * 1.5)) * 1000);
+                            timer = new System.Threading.Timer(callback, null, TimeSpan.Zero, TimeSpan.FromSeconds(formData.RepeatTime));
+                        }).Start();
                     }
                     else if (formData.ComparisonOption == "Check same color background")
                     {
@@ -973,7 +981,11 @@ namespace DesktopActivityChecker
                                     "Captures Per Interval: `" + formData.CapturePerInterval + "`, Matching: `" + formData.MatchCaptures + "`", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
                             }
                         };
-                        timer = new System.Threading.Timer(callback, null, TimeSpan.Zero, TimeSpan.FromSeconds(formData.RepeatTime));
+                        new Thread(() =>
+                        {
+                            Thread.Sleep((5 + (int)Math.Round(formData.Id * 1.5)) * 1000);
+                            timer = new System.Threading.Timer(callback, null, TimeSpan.Zero, TimeSpan.FromSeconds(formData.RepeatTime));
+                        }).Start();
                     }
                 }
             }
