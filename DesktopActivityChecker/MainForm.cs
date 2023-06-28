@@ -911,10 +911,10 @@ namespace DesktopActivityChecker
                             }
                             if (isAlert)
                             {
+                                timer.Dispose();
                                 // Alert via ntfy.sh here
                                 MessageBox.Show("Time to alert now, condition met in `Check pixel color present`:`" + formData.WaitFor + "`," +
                                     "Captures Per Interval: `" + formData.CapturePerInterval + "`, Matching: `" + formData.MatchCaptures + "`", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                                timer.Dispose();
                             }
                         };
                         timer = new System.Threading.Timer(callback, null, TimeSpan.Zero, TimeSpan.FromSeconds(formData.RepeatTime));
@@ -967,10 +967,10 @@ namespace DesktopActivityChecker
                             }
                             if (isAlert)
                             {
+                                timer.Dispose();
                                 // Alert via ntfy.sh here
                                 MessageBox.Show("Time to alert now, condition met in `Check same color background`:`" + formData.WaitFor + "`," +
                                     "Captures Per Interval: `" + formData.CapturePerInterval + "`, Matching: `" + formData.MatchCaptures + "`", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                                timer.Dispose();
                             }
                         };
                         timer = new System.Threading.Timer(callback, null, TimeSpan.Zero, TimeSpan.FromSeconds(formData.RepeatTime));
