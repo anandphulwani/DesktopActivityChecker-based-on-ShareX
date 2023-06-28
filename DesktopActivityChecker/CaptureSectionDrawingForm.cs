@@ -17,6 +17,9 @@ public class CaptureSectionDrawingForm : Form
     public CaptureSectionDrawingForm(Rectangle rect, int timeout)
     {
         this.animationTimeout = timeout;
+        Random random = new Random();
+        randomColor = darkColors[random.Next(darkColors.Length)];
+
         previousForegroundWindow = NativeMethods.GetForegroundWindow();
         highlightRect = rect;
         dashOffset = 0;
@@ -47,9 +50,6 @@ public class CaptureSectionDrawingForm : Form
         exitTimer.Interval = animationTimeout; // 5 seconds (adjust as desired)
         exitTimer.Tick += ExitTimer_Tick;
         exitTimer.Start();
-
-        Random random = new Random();
-        randomColor = darkColors[random.Next(darkColors.Length)];
 
         // Register the paint event handler
         Paint += CaptureSectionDrawingForm_Paint;
