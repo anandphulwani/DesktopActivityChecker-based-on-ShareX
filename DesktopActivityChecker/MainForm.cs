@@ -864,7 +864,7 @@ namespace DesktopActivityChecker
                             int noOfValidCaptures = 0;
                             for (int i = 0; i < formData.CapturePerInterval; i++)
                             {
-                                String[] colors = entryComparisonValue.Text.Split(',');
+                                string[] colors = entryComparisonValue.Text.Split(',');
                                 int timeout = formData.SleepBetweenCaptures > 200 ? (formData.SleepBetweenCaptures / 2 > 2000 ? formData.SleepBetweenCaptures - 2000 : formData.SleepBetweenCaptures / 2) : 100;
                                 Image newImage = getImageFromCoordinatesOfFormData(formData, timeout);
 
@@ -875,7 +875,7 @@ namespace DesktopActivityChecker
                                 {
                                     for (int x = 0; x < bitmap.Width; x++)
                                     {
-                                        String pixelColor = bitmap.GetPixel(x, y).ToString();
+                                        string pixelColor = bitmap.GetPixel(x, y).ToString();
                                         if (Array.IndexOf(colors, pixelColor) != -1)
                                         {
                                             if (formData.MatchCaptures == "Any")
@@ -885,7 +885,7 @@ namespace DesktopActivityChecker
                                             }
                                             if (formData.MatchCaptures == "All")
                                             {
-                                                List<String> colorsList = colors.ToList();
+                                                List<string> colorsList = colors.ToList();
                                                 colorsList.Remove(pixelColor);
                                                 colors = colorsList.ToArray();
                                                 if (colors.Length == 0)
