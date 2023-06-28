@@ -91,7 +91,7 @@ public class CaptureSectionDrawingForm : Form
         base.OnActivated(e);
 
         // Store the handle of the previous foreground window
-        // previousForegroundWindow = NativeMethods.GetForegroundWindow();
+        previousForegroundWindow = NativeMethods.GetForegroundWindow();
     }
 
     protected override void OnShown(EventArgs e)
@@ -99,7 +99,7 @@ public class CaptureSectionDrawingForm : Form
         base.OnShown(e);
 
         // Set the focus back to the previous foreground window
-        // NativeMethods.SetForegroundWindow(previousForegroundWindow);
+        NativeMethods.SetForegroundWindow(previousForegroundWindow);
     }
 
     // Native methods for click-through functionality
