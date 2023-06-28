@@ -771,38 +771,66 @@ namespace DesktopActivityChecker
                 {
                     TimerCallback callback;
                     System.Threading.Timer timer = null;
+
+
                     if (formData.ComparisonOption == "Match from Initial Capture" || formData.ComparisonOption == "Match from Last Capture")
                     {
-                        Image originalImage = getImageFromCoordinatesOfFormData(formData);
+                        bool isFirstRun = true;
+                        Image originalImage = null;
                         string originalImageStringBase64 = null;
                         callback = state =>
                         {
-                            if (originalImageStringBase64 == null)
-                            { 
+                            if (isFirstRun == true)
+                            {
+                                int firstCaptureAnimationTime = (int)Math.Round((double)formData.RepeatTime / 2);
+                                firstCaptureAnimationTime = (firstCaptureAnimationTime > 10 ? 10 : firstCaptureAnimationTime) * 1000;
+                                originalImage = getImageFromCoordinatesOfFormData(formData, firstCaptureAnimationTime);
                                 originalImageStringBase64 = ConvertImageToBase64(originalImage);
+                                isFirstRun = false;
                                 return;
                             }
+                            bool isAlert = false;
+                            int noOfValidCaptures = 0;
                             for (int i = 0; i < formData.CapturePerInterval; i++)
                             {
                                 int timeout = formData.SleepBetweenCaptures > 200 ? (formData.SleepBetweenCaptures / 2 > 2000 ? formData.SleepBetweenCaptures - 2000 : formData.SleepBetweenCaptures / 2) : 100;
                                 Image newImage = getImageFromCoordinatesOfFormData(formData, timeout);
                                 string newImageStringBase64 = ConvertImageToBase64(newImage);
+
                                 bool isEqual = string.Equals(originalImageStringBase64, newImageStringBase64, StringComparison.OrdinalIgnoreCase);
-                                if ((formData.WaitFor == "Equality" && !isEqual) || (formData.WaitFor == "Non Equality" && isEqual))
+                                if ((formData.WaitFor == "Equality" && isEqual) || (formData.WaitFor == "Non Equality" && !isEqual))
                                 {
-                                    if (formData.ComparisonOption == "Match from Last Capture")
+                                    if (formData.MatchCaptures == "Any")
                                     {
-                                        originalImage = getImageFromCoordinatesOfFormData(formData);
+                                        isAlert = true;
+                                        break;
                                     }
-                                    return;
+                                    noOfValidCaptures++;
                                 }
                                 Thread.Sleep(formData.SleepBetweenCaptures);
                             }
-                            // Alert via ntfy.sh here
-                            MessageBox.Show("Time to alert now as this is giving same image since the last time.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                            timer.Dispose();
+                            if (formData.ComparisonOption == "Match from Last Capture")
+                            {
+                                originalImage = getImageFromCoordinatesOfFormData(formData);
+                            }
+                            if (formData.MatchCaptures == "All" && noOfValidCaptures == formData.CapturePerInterval)
+                            {
+                                isAlert = true;
+                            }
+                            if (isAlert)
+                            {
+                                timer.Dispose();
+                                // Alert via ntfy.sh here
+                                MessageBox.Show("Time to alert now, condition met in `"+ formData.ComparisonOption + "`:`" + formData.WaitFor + "`," +
+                                    "Captures Per Interval: `" + formData.CapturePerInterval + "`, Matching: `" + formData.MatchCaptures + "`", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            }
                         };
-                        timer = new System.Threading.Timer(callback, null, TimeSpan.Zero, TimeSpan.FromSeconds(formData.RepeatTime));
+                        new Thread(() =>
+                        {
+                            // Thread.Sleep(5000); // Sleep for 5 seconds
+                            Thread.Sleep((5 + (int)Math.Round(formData.Id * 1.5)) * 1000);
+                            timer = new System.Threading.Timer(callback, null, TimeSpan.Zero, TimeSpan.FromSeconds(formData.RepeatTime));
+                        }).Start();
                     }
                     else if (formData.ComparisonOption == "OCR compare")
                     {
