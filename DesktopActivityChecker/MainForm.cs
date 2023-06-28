@@ -870,7 +870,9 @@ namespace DesktopActivityChecker
 
                                 Bitmap bitmap = new Bitmap(newImage);
                                 Color referenceColor = bitmap.GetPixel(0, 0);
-                                bool isAllColorFound = false;
+                                bool? areColorsFound = null;
+                                areColorsFound = formData.WaitFor == "Present" ? false : areColorsFound;
+                                areColorsFound = formData.WaitFor == "Not Present" ? true : areColorsFound;
                                 for (int y = 0; y < bitmap.Height; y++)
                                 {
                                     for (int x = 0; x < bitmap.Width; x++)
@@ -878,19 +880,38 @@ namespace DesktopActivityChecker
                                         string pixelColor = bitmap.GetPixel(x, y).ToString();
                                         if (Array.IndexOf(colors, pixelColor) != -1)
                                         {
-                                            if (formData.MatchCaptures == "Any")
+                                            if (formData.WaitFor == "Present" && formData.ColorMatches == "Any")
                                             {
-                                                isAllColorFound = true;
+                                                areColorsFound = true;
                                                 goto endOfOuterLoop;
                                             }
-                                            if (formData.MatchCaptures == "All")
+                                            if (formData.WaitFor == "Present" && formData.ColorMatches == "All")
                                             {
                                                 List<string> colorsList = colors.ToList();
                                                 colorsList.Remove(pixelColor);
                                                 colors = colorsList.ToArray();
                                                 if (colors.Length == 0)
                                                 {
-                                                    isAllColorFound = true;
+                                                    areColorsFound = true;
+                                                    goto endOfOuterLoop;
+                                                }
+                                            }
+                                        }
+                                        else
+                                        {
+                                            if (formData.WaitFor == "Not Present" && formData.ColorMatches == "Any")
+                                            {
+                                                areColorsFound = false;
+                                                goto endOfOuterLoop;
+                                            }
+                                            if (formData.WaitFor == "Not Present" && formData.ColorMatches == "All")
+                                            {
+                                                List<string> colorsList = colors.ToList();
+                                                colorsList.Remove(pixelColor);
+                                                colors = colorsList.ToArray();
+                                                if (colors.Length == 0)
+                                                {
+                                                    areColorsFound = false;
                                                     goto endOfOuterLoop;
                                                 }
                                             }
@@ -898,7 +919,7 @@ namespace DesktopActivityChecker
                                     }
                                 }
                                 endOfOuterLoop:
-                                if ((formData.WaitFor == "Present" && isAllColorFound) || (formData.WaitFor == "Not Present" && !isAllColorFound))
+                                if ((formData.WaitFor == "Present" && (areColorsFound ?? false)) || (formData.WaitFor == "Not Present" && !(areColorsFound ?? true)))
                                 {
                                     if (formData.MatchCaptures == "Any")
                                     {
