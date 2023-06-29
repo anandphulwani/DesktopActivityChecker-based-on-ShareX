@@ -114,7 +114,7 @@ namespace DesktopActivityChecker
             if (int.TryParse(value, out int num))
             {
                 // return num > 0 && num < 100000;
-                return num > minValue && num < maxValue;
+                return num >= minValue && num <= maxValue;
             }
             else
             {
