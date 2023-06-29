@@ -47,7 +47,7 @@ namespace DesktopActivityChecker
             comboBoxComparisonOption.SelectedIndex = 0;
             comboBoxWaitFor.SelectedIndex = 0;
             comboBoxMatchCaptures.SelectedIndex = 0;
-            comboBoxColorMatches.SelectedIndex = 0;
+            comboBoxColorMatches.SelectedIndex = -1;
 
             using (var stream = new System.IO.MemoryStream(System.Text.Encoding.UTF8.GetBytes(regionSvgContent)))
             {
