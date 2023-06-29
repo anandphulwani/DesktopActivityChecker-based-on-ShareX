@@ -14,6 +14,21 @@ public class CaptureSectionDrawingForm : Form
     private Color randomColor;
     private int animationTimeout;
 
+    protected override bool ShowWithoutActivation
+    {
+        get { return true; }
+    }
+
+    protected override CreateParams CreateParams
+    {
+        get
+        {
+            CreateParams createParams = base.CreateParams;
+            createParams.ExStyle |= 0x08000000; // WS_EX_NOACTIVATE
+            return createParams;
+        }
+    }
+
     public CaptureSectionDrawingForm(Rectangle rect, int timeout)
     {
         this.animationTimeout = timeout;
@@ -57,7 +72,6 @@ public class CaptureSectionDrawingForm : Form
 
     private void CaptureSectionDrawingForm_Paint(object sender, PaintEventArgs e)
     {
-        NativeMethods.SetForegroundWindow(previousForegroundWindow);
         // Draw the animated dashed border with a thicker width
         using (Pen pen = new Pen(randomColor, 2)) // Set the width (adjust as desired)
         {
