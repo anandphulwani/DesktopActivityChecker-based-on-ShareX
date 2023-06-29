@@ -273,7 +273,7 @@ namespace DesktopActivityChecker
                 ColorMatches = comboBoxColorMatches.SelectedItem.ToString(),
                 SleepBetweenCaptures = Convert.ToInt32(entrySleepBetweenCaptures.Text),
                 CapturePerInterval = Convert.ToInt32(entryCapturePerInterval.Text),
-                MatchCaptures = comboBoxMatchCaptures.SelectedItem.ToString(),               
+                MatchCaptures = comboBoxMatchCaptures.SelectedItem.ToString(),
                 PostRequestUrl = entryPostRequestUrl.Text,
                 PostMessage = entryPostMessage.Text,
                 Enabled = checkBoxEnabled.Checked
