@@ -45,9 +45,9 @@ public class CaptureSectionDrawingForm : Form
         animationTimer.Tick += AnimationTimer_Tick;
         animationTimer.Start();
 
-        // Create a timer for exiting after 5 seconds
+        // Create a timer for exiting after the specified timeout
         exitTimer = new Timer();
-        exitTimer.Interval = animationTimeout; // 5 seconds (adjust as desired)
+        exitTimer.Interval = animationTimeout;
         exitTimer.Tick += ExitTimer_Tick;
         exitTimer.Start();
 
@@ -82,7 +82,7 @@ public class CaptureSectionDrawingForm : Form
         exitTimer.Stop(); // Stop the exit timer
         animationTimer.Stop(); // Stop the animation timer
 
-        // Terminate the application
+        // Terminate the form
         Close();
     }
 
@@ -116,6 +116,5 @@ public class CaptureSectionDrawingForm : Form
 
         [System.Runtime.InteropServices.DllImport("user32.dll")]
         public static extern bool SetForegroundWindow(IntPtr hWnd);
-
     }
 }
