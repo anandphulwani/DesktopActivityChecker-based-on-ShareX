@@ -834,21 +834,76 @@ namespace DesktopActivityChecker
                     }
                     else if (formData.ComparisonOption == "OCR compare")
                     {
+                        bool isFirstRun = true;
                         callback = async state =>
                         {
-                            Image newImage = getImageFromCoordinatesOfFormData(formData);
-                            TaskSettings taskSettings = TaskSettings.GetDefaultTaskSettings();
-                            OCROptions options = taskSettings.CaptureSettingsReference.OCROptions;
-                            options.ScaleFactor = 8f;
-                            string result = await OCRHelper.OCR((Bitmap)newImage, options.Language, options.ScaleFactor, options.SingleLine);
-                            MessageBox.Show("form.Result: "+ result, "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                            timer.Change(TimeSpan.FromSeconds(formData.RepeatTime), Timeout.InfiniteTimeSpan);
+                            if (isFirstRun == true)
+                            {
+                                isFirstRun = false;
+                                return;
+                            }
+                            bool isAlert = false;
+                            int noOfValidCaptures = 0;
+                            for (int i = 0; i < formData.CapturePerInterval; i++)
+                            {
+                                TaskSettings taskSettings = TaskSettings.GetDefaultTaskSettings();
+                                OCROptions options = taskSettings.CaptureSettingsReference.OCROptions;
+
+                                int timeout = formData.SleepBetweenCaptures > 200 ? (formData.SleepBetweenCaptures / 2 > 2000 ? formData.SleepBetweenCaptures - 2000 : formData.SleepBetweenCaptures / 2) : 100;
+                                Image newImage = getImageFromCoordinatesOfFormData(formData, timeout);
+
+                                string capturedText = await OCRHelper.OCR((Bitmap)newImage, options.Language, (float)formData.ScaleFactor, options.SingleLine);
+                                Console.WriteLine("====================================================================================================");
+                                Console.WriteLine("Captured Text: " + capturedText);
+                                Regex regex = new Regex(Regex.Escape(formData.OCRRegex));
+                                Match match = regex.Match(capturedText);
+                                if (match.Success && match.Groups.Count > formData.OCRRegexGroup)
+                                {
+                                    string result = match.Groups[formData.OCRRegexGroup].Value;
+                                    Console.WriteLine("Regex Group Text To Compare (result): " + result);
+                                    Console.WriteLine("====================================================================================================");
+                                    if (
+                                    formData.WaitFor == "Numeric.==" && Convert.ToInt32(result) == Convert.ToInt32(formData.ComparisonValue) ||
+                                    formData.WaitFor == "Numeric.!=" && Convert.ToInt32(result) != Convert.ToInt32(formData.ComparisonValue) ||
+                                    formData.WaitFor == "Numeric.>" && Convert.ToInt32(result) > Convert.ToInt32(formData.ComparisonValue) ||
+                                    formData.WaitFor == "Numeric.>=" && Convert.ToInt32(result) >= Convert.ToInt32(formData.ComparisonValue) ||
+                                    formData.WaitFor == "Numeric.<" && Convert.ToInt32(result) < Convert.ToInt32(formData.ComparisonValue) ||
+                                    formData.WaitFor == "Numeric.<=" && Convert.ToInt32(result) <= Convert.ToInt32(formData.ComparisonValue) ||
+                                    formData.WaitFor == "String.Equality" && result == formData.ComparisonValue ||
+                                    formData.WaitFor == "String.Non Equality" && result != formData.ComparisonValue
+                                    )
+                                    {
+                                        if (formData.MatchCaptures == "Any")
+                                        {
+                                            isAlert = true;
+                                            break;
+                                        }
+                                        noOfValidCaptures++;
+                                    }
+                                }
+                                Thread.Sleep(formData.SleepBetweenCaptures);
+                            }
+                            if (formData.MatchCaptures == "All" && noOfValidCaptures == formData.CapturePerInterval)
+                            {
+                                isAlert = true;
+                            }
+                            if (isAlert)
+                            {
+                                timer.Dispose();
+                                // Alert via ntfy.sh here
+                                MessageBox.Show("Time to alert now, condition met in `OCR compare`:`" + formData.WaitFor + "`," +
+                                    "Captures Per Interval: `" + formData.CapturePerInterval + "`, Matching: `" + formData.MatchCaptures + "`", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            }
+                            else
+                            {
+                                timer.Change(TimeSpan.FromSeconds(formData.RepeatTime), Timeout.InfiniteTimeSpan);
+                            }
                         };
                         new Thread(() =>
                         {
                             Thread.Sleep((5 + (int)Math.Round(formData.Id * 1.5)) * 1000);
-                            timer = new System.Threading.Timer(callback, null, TimeSpan.Zero, TimeSpan.FromSeconds(formData.RepeatTime));
-                        }).Start();
+                            timer = new System.Threading.Timer(callback, null, TimeSpan.Zero, Timeout.InfiniteTimeSpan);
+                        }).Start();   
                     }
                     else if (formData.ComparisonOption == "Check pixel color present")
                     {
