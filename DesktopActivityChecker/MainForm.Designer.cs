@@ -75,15 +75,15 @@ namespace DesktopActivityChecker
             this.labelHeading = new System.Windows.Forms.Label();
             this.tabEntriesTable = new System.Windows.Forms.TabPage();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
-            this.Enabled = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+            this.isEnabled = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.Edit = new System.Windows.Forms.DataGridViewImageColumn();
             this.Delete = new System.Windows.Forms.DataGridViewImageColumn();
             this.Id = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.NameOfEntry = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.X = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Y = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Width = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Height = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Width_W = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Height_H = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.RepeatTime = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ComparisonOption = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.WaitFor = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -610,15 +610,15 @@ namespace DesktopActivityChecker
             // dataGridView1
             // 
             this.dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.Enabled,
+            this.isEnabled,
             this.Edit,
             this.Delete,
             this.Id,
             this.NameOfEntry,
             this.X,
             this.Y,
-            this.Width,
-            this.Height,
+            this.Width_W,
+            this.Height_H,
             this.RepeatTime,
             this.ComparisonOption,
             this.WaitFor,
@@ -640,14 +640,14 @@ namespace DesktopActivityChecker
             this.dataGridView1.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellClick);
             this.dataGridView1.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.dataGridView1_CellFormatting);
             // 
-            // Enabled
+            // isEnabled
             // 
-            this.Enabled.DataPropertyName = "Enabled";
-            this.Enabled.HeaderText = "";
-            this.Enabled.Name = "Enabled";
-            this.Enabled.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.Enabled.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
-            this.Enabled.Width = 20;
+            this.isEnabled.DataPropertyName = "Enabled";
+            this.isEnabled.HeaderText = "";
+            this.isEnabled.Name = "isEnabled";
+            this.isEnabled.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.isEnabled.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            this.isEnabled.Width = 20;
             // 
             // Edit
             // 
@@ -699,23 +699,23 @@ namespace DesktopActivityChecker
             this.Y.ReadOnly = true;
             this.Y.Width = 39;
             // 
-            // Width
+            // Width_W
             // 
-            this.Width.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            this.Width.DataPropertyName = "Width";
-            this.Width.HeaderText = "W";
-            this.Width.Name = "Width";
-            this.Width.ReadOnly = true;
-            this.Width.Width = 43;
+            this.Width_W.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            this.Width_W.DataPropertyName = "Width";
+            this.Width_W.HeaderText = "W";
+            this.Width_W.Name = "Width_W";
+            this.Width_W.ReadOnly = true;
+            this.Width_W.Width = 43;
             // 
-            // Height
+            // Height_H
             // 
-            this.Height.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            this.Height.DataPropertyName = "Height";
-            this.Height.HeaderText = "H";
-            this.Height.Name = "Height";
-            this.Height.ReadOnly = true;
-            this.Height.Width = 40;
+            this.Height_H.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            this.Height_H.DataPropertyName = "Height";
+            this.Height_H.HeaderText = "H";
+            this.Height_H.Name = "Height_H";
+            this.Height_H.ReadOnly = true;
+            this.Height_H.Width = 40;
             // 
             // RepeatTime
             // 
@@ -904,15 +904,15 @@ namespace DesktopActivityChecker
         private System.Windows.Forms.Label labelWaitFor;
         private System.Windows.Forms.ComboBox comboBoxColorMatches;
         private System.Windows.Forms.Label labelColorMatches;
-        private System.Windows.Forms.DataGridViewCheckBoxColumn Enabled;
+        private System.Windows.Forms.DataGridViewCheckBoxColumn isEnabled;
         private System.Windows.Forms.DataGridViewImageColumn Edit;
         private System.Windows.Forms.DataGridViewImageColumn Delete;
         private System.Windows.Forms.DataGridViewTextBoxColumn Id;
         private System.Windows.Forms.DataGridViewTextBoxColumn NameOfEntry;
         private System.Windows.Forms.DataGridViewTextBoxColumn X;
         private System.Windows.Forms.DataGridViewTextBoxColumn Y;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Width;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Height;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Width_W;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Height_H;
         private System.Windows.Forms.DataGridViewTextBoxColumn RepeatTime;
         private System.Windows.Forms.DataGridViewTextBoxColumn ComparisonOption;
         private System.Windows.Forms.DataGridViewTextBoxColumn WaitFor;
