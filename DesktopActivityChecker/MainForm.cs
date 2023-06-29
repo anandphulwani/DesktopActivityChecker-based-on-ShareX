@@ -169,12 +169,12 @@ namespace DesktopActivityChecker
             {
                 if (!(ValidateStringEmpty(entryComparisonValue.Text) && ValidateStringEmpty(entryOCRRegex.Text) && ValidateStringEmpty(entryOCRRegexGroup.Text) && ValidateStringEmpty(entryScaleFactor.Text)))
                 {
-                    MessageBox.Show("'Value To Compare', 'OCR Regex', 'OCR Regex Group', 'Scale Factor' is not empty.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("'Value To Compare': `"+ entryComparisonValue.Text + "`, 'OCR Regex': `" + entryOCRRegex.Text + "`, 'OCR Regex Group': `" + entryOCRRegexGroup.Text + "` or 'Scale Factor': `" + entryScaleFactor.Text + "` is not empty.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return false;
                 }
                 if (comboBoxColorMatches.SelectedIndex != -1)
                 {
-                    MessageBox.Show("'Color Matches' is not empty.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("'Color Matches': `" + comboBoxColorMatches.SelectedItem.ToString() + " (" + comboBoxColorMatches.SelectedIndex + ")` is not empty.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return false;
                 }
             }
@@ -182,12 +182,12 @@ namespace DesktopActivityChecker
             {
                 if (ValidateStringEmpty(entryComparisonValue.Text) || ValidateStringEmpty(entryOCRRegex.Text) || ValidateStringEmpty(entryOCRRegexGroup.Text) || ValidateStringEmpty(entryScaleFactor.Text))
                 {
-                    MessageBox.Show("'Value To Compare', 'OCR Regex', 'OCR Regex Group' or 'Scale Factor' is empty.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("'Value To Compare': `" + entryComparisonValue.Text + "`, 'OCR Regex': `" + entryOCRRegex.Text + "`, 'OCR Regex Group': `" + entryOCRRegexGroup.Text + "` or 'Scale Factor': `" + entryScaleFactor.Text + "` is empty.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return false;
                 }
                 if (comboBoxColorMatches.SelectedIndex != -1)
                 {
-                    MessageBox.Show("'Color Matches' is not empty.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("'Color Matches': `" + comboBoxColorMatches.SelectedItem.ToString() +" ("+ comboBoxColorMatches.SelectedIndex + ")` is not empty.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return false;
                 }
             }
@@ -200,12 +200,12 @@ namespace DesktopActivityChecker
                 }
                 if (!(ValidateStringEmpty(entryOCRRegex.Text) && ValidateStringEmpty(entryOCRRegexGroup.Text) && ValidateStringEmpty(entryScaleFactor.Text)))
                 {
-                    MessageBox.Show("'OCR Regex', 'OCR Regex Group', 'Scale Factor' is not empty.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("'OCR Regex': `" + entryOCRRegex.Text + "`, 'OCR Regex Group': `" + entryOCRRegexGroup.Text + "` or 'Scale Factor': `" + entryScaleFactor.Text + "` is not empty.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return false;
                 }
                 if (comboBoxColorMatches.SelectedIndex == -1)
                 {
-                    MessageBox.Show("'Color Matches' is empty.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("'Color Matches': `" + comboBoxColorMatches.SelectedItem.ToString() + " (" + comboBoxColorMatches.SelectedIndex + ")` is empty.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return false;
                 }
             }
