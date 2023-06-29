@@ -91,7 +91,7 @@ public class CaptureSectionDrawingForm : Form
         base.OnActivated(e);
 
         // Store the handle of the previous foreground window
-        previousForegroundWindow = NativeMethods.GetForegroundWindow();
+        // previousForegroundWindow = NativeMethods.GetForegroundWindow();
     }
 
     protected override void OnShown(EventArgs e)
