@@ -445,6 +445,7 @@ namespace DesktopActivityChecker
                 entryWidth.Text = formDataToEdit.Width;
                 entryHeight.Text = formDataToEdit.Height;
                 entryRepeatTime.Text = formDataToEdit.RepeatTime;
+                comboBoxComparisonOption.SelectedIndex = -1;
                 foreach (var item in comboBoxComparisonOption.Items)
                 {
                     if (item.ToString() == formDataToEdit.ComparisonOption)
@@ -453,6 +454,7 @@ namespace DesktopActivityChecker
                         break;
                     }
                 }
+                comboBoxWaitFor.SelectedIndex = -1;
                 foreach (var item in comboBoxWaitFor.Items)
                 {
                     if (item.ToString() == formDataToEdit.WaitFor)
@@ -465,6 +467,7 @@ namespace DesktopActivityChecker
                 entryOCRRegex.Text = formDataToEdit.OCRRegex;
                 entryOCRRegexGroup.Text = formDataToEdit.OCRRegexGroup;
                 entryScaleFactor.Text = formDataToEdit.ScaleFactor;
+                comboBoxColorMatches.SelectedIndex = -1;
                 foreach (var item in comboBoxColorMatches.Items)
                 {
                     if (item.ToString() == formDataToEdit.ColorMatches)
@@ -475,6 +478,7 @@ namespace DesktopActivityChecker
                 }
                 entrySleepBetweenCaptures.Text = formDataToEdit.SleepBetweenCaptures;
                 entryCapturePerInterval.Text = formDataToEdit.CapturePerInterval;
+                comboBoxMatchCaptures.SelectedIndex = -1;
                 foreach (var item in comboBoxMatchCaptures.Items)
                 {
                     if (item.ToString() == formDataToEdit.MatchCaptures)
