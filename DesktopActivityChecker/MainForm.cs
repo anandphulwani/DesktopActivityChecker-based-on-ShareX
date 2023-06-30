@@ -817,6 +817,7 @@ namespace DesktopActivityChecker
                             if (formData.ComparisonOption == "Match from Last Capture")
                             {
                                 originalImage = getImageFromCoordinatesOfFormData(formData);
+                                originalImageStringBase64 = ConvertImageToBase64(originalImage);
                             }
                             if (formData.MatchCaptures == "All" && noOfValidCaptures == Convert.ToInt32(formData.CapturePerInterval))
                             {
