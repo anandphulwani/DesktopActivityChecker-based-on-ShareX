@@ -305,7 +305,6 @@ namespace DesktopActivityChecker
             entryPostMessage.Text = lastPostMessage;
             checkBoxEnabled.Checked = true;
 
-            entryScaleFactor.Text = "4";
             entrySleepBetweenCaptures.Text = "250";
             entryCapturePerInterval.Text = "10";
         }
