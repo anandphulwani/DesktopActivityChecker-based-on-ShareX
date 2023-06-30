@@ -733,18 +733,37 @@ namespace DesktopActivityChecker
             }
         }
 
+
+        private void dataGridView1_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Space)
+            {
+                DataGridView dataGridView = (DataGridView)sender;
+                int columnIndex = dataGridView.CurrentCell.ColumnIndex;
+                int rowIndex = dataGridView.CurrentCell.RowIndex;
+                if (rowIndex >= 0 && columnIndex >= 0) { 
+                    dataGridView1_MouseOrKeyBoardAction(sender, rowIndex, columnIndex);
+                }
+            }
+        }
+
         private void dataGridView1_CellClick(object sender, DataGridViewCellEventArgs e)
         {
             if (e.RowIndex >= 0 && e.ColumnIndex >= 0)
             {
-                int rowIndex = e.RowIndex;
+                dataGridView1_MouseOrKeyBoardAction(sender, e.RowIndex, e.ColumnIndex);
+            }
+        }
+
+        private void dataGridView1_MouseOrKeyBoardAction(object sender, int rowIndex, int columnIndex)
+        {
                 int id = Convert.ToInt32(dataGridView1.Rows[rowIndex].Cells["Id"].Value);
                 string name = Convert.ToString(dataGridView1.Rows[rowIndex].Cells["NameOfEntry"].Value);
-                if (dataGridView1.Columns[e.ColumnIndex].Name == "Enabled")
+                if (dataGridView1.Columns[columnIndex].Name == "Enabled")
                 {
                     UpdateEnabledDisabled(id, !Convert.ToBoolean(dataGridView1.Rows[rowIndex].Cells["Enabled"].Value));
                 }
-                else if(dataGridView1.Columns[e.ColumnIndex].Name == "Edit")
+                else if(dataGridView1.Columns[columnIndex].Name == "Edit")
                 {
                     DialogResult result = MessageBox.Show($"Do you want to edit record with {name} ({id})?", "Confirmation", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
                     if (result == DialogResult.Yes)
@@ -757,7 +776,7 @@ namespace DesktopActivityChecker
                         return;
                     }
                 }
-                else if (dataGridView1.Columns[e.ColumnIndex].Name == "Delete")
+                else if (dataGridView1.Columns[columnIndex].Name == "Delete")
                 {
                     DialogResult result = MessageBox.Show($"Do you want to delete record with {name} ({id})?", "Confirmation", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
                     if (result == DialogResult.Yes)
@@ -770,7 +789,6 @@ namespace DesktopActivityChecker
                         return;
                     }
                 }
-            }
         }
         #endregion
 
