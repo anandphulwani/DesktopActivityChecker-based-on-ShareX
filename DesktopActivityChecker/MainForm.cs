@@ -63,6 +63,17 @@ namespace DesktopActivityChecker
             newThread.Start();
         }
 
+        private void tabControl_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            TabControl tabControl = (TabControl)sender;
+            TabPage selectedTab = tabControl.SelectedTab;
+            if (tabControl.SelectedIndex == 1)
+            { 
+                DataGridView tableControl = selectedTab.Controls.OfType<DataGridView>().FirstOrDefault();
+                tableControl?.Focus();
+            }
+        }
+
         #region MainForm FormClosed, FormClosing, Resize, MouseClick
         private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
         {
