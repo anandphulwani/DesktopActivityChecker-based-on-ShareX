@@ -259,20 +259,20 @@ namespace DesktopActivityChecker
             {
                 Id = string.IsNullOrEmpty(entryId.Text) ? Convert.ToInt32(ReadLastIdFromJson()) + 1 : Convert.ToInt32(entryId.Text),
                 Name = entryName.Text,
-                X = Convert.ToInt32(entryX.Text),
-                Y = Convert.ToInt32(entryY.Text),
-                Width = Convert.ToInt32(entryWidth.Text),
-                Height = Convert.ToInt32(entryHeight.Text),
-                RepeatTime = Convert.ToInt32(entryRepeatTime.Text),
+                X = entryX.Text,
+                Y = entryY.Text,
+                Width = entryWidth.Text,
+                Height = entryHeight.Text,
+                RepeatTime = entryRepeatTime.Text,
                 ComparisonOption = comboBoxComparisonOption.SelectedItem.ToString(),
                 WaitFor = comboBoxWaitFor.SelectedItem.ToString(),
                 ComparisonValue = entryComparisonValue.Text,
                 OCRRegex = entryOCRRegex.Text,
-                OCRRegexGroup = Convert.ToInt32(entryOCRRegexGroup.Text),
-                ScaleFactor = Convert.ToInt32(entryScaleFactor.Text),
-                ColorMatches = comboBoxColorMatches.SelectedItem.ToString(),
-                SleepBetweenCaptures = Convert.ToInt32(entrySleepBetweenCaptures.Text),
-                CapturePerInterval = Convert.ToInt32(entryCapturePerInterval.Text),
+                OCRRegexGroup = entryOCRRegexGroup.Text,
+                ScaleFactor = entryScaleFactor.Text,
+                ColorMatches = comboBoxColorMatches.SelectedIndex >= 0 ? comboBoxColorMatches.SelectedItem.ToString() : "",
+                SleepBetweenCaptures = entrySleepBetweenCaptures.Text,
+                CapturePerInterval = entryCapturePerInterval.Text,
                 MatchCaptures = comboBoxMatchCaptures.SelectedItem.ToString(),
                 PostRequestUrl = entryPostRequestUrl.Text,
                 PostMessage = entryPostMessage.Text,
@@ -441,11 +441,11 @@ namespace DesktopActivityChecker
             {
                 entryId.Text = Convert.ToString(formDataToEdit.Id);
                 entryName.Text = formDataToEdit.Name;
-                entryX.Text = Convert.ToString(formDataToEdit.X);
-                entryY.Text = Convert.ToString(formDataToEdit.Y);
-                entryWidth.Text = Convert.ToString(formDataToEdit.Width) ;
-                entryHeight.Text = Convert.ToString(formDataToEdit.Height);
-                entryRepeatTime.Text = Convert.ToString(formDataToEdit.RepeatTime);
+                entryX.Text = formDataToEdit.X;
+                entryY.Text = formDataToEdit.Y;
+                entryWidth.Text = formDataToEdit.Width;
+                entryHeight.Text = formDataToEdit.Height;
+                entryRepeatTime.Text = formDataToEdit.RepeatTime;
                 foreach (var item in comboBoxComparisonOption.Items)
                 {
                     if (item.ToString() == formDataToEdit.ComparisonOption)
@@ -464,8 +464,8 @@ namespace DesktopActivityChecker
                 }
                 entryComparisonValue.Text = formDataToEdit.ComparisonValue;
                 entryOCRRegex.Text = formDataToEdit.OCRRegex;
-                entryOCRRegexGroup.Text = Convert.ToString(formDataToEdit.OCRRegexGroup);
-                entryScaleFactor.Text = Convert.ToString(formDataToEdit.ScaleFactor);
+                entryOCRRegexGroup.Text = formDataToEdit.OCRRegexGroup;
+                entryScaleFactor.Text = formDataToEdit.ScaleFactor;
                 foreach (var item in comboBoxColorMatches.Items)
                 {
                     if (item.ToString() == formDataToEdit.ColorMatches)
@@ -474,8 +474,8 @@ namespace DesktopActivityChecker
                         break;
                     }
                 }
-                entrySleepBetweenCaptures.Text = Convert.ToString(formDataToEdit.SleepBetweenCaptures);
-                entryCapturePerInterval.Text = Convert.ToString(formDataToEdit.CapturePerInterval);
+                entrySleepBetweenCaptures.Text = formDataToEdit.SleepBetweenCaptures;
+                entryCapturePerInterval.Text = formDataToEdit.CapturePerInterval;
                 foreach (var item in comboBoxMatchCaptures.Items)
                 {
                     if (item.ToString() == formDataToEdit.MatchCaptures)
@@ -507,20 +507,20 @@ namespace DesktopActivityChecker
                     {
                         formDataToUpdate.Id = Convert.ToInt32(entryId.Text);
                         formDataToUpdate.Name = entryName.Text;
-                        formDataToUpdate.X = Convert.ToInt32(entryX.Text);
-                        formDataToUpdate.Y = Convert.ToInt32(entryY.Text);
-                        formDataToUpdate.Width = Convert.ToInt32(entryWidth.Text);
-                        formDataToUpdate.Height = Convert.ToInt32(entryHeight.Text);
-                        formDataToUpdate.RepeatTime = Convert.ToInt32(entryRepeatTime.Text);
+                        formDataToUpdate.X = entryX.Text;
+                        formDataToUpdate.Y = entryY.Text;
+                        formDataToUpdate.Width = entryWidth.Text;
+                        formDataToUpdate.Height = entryHeight.Text;
+                        formDataToUpdate.RepeatTime = entryRepeatTime.Text;
                         formDataToUpdate.ComparisonOption = comboBoxComparisonOption.SelectedItem.ToString();
                         formDataToUpdate.WaitFor = comboBoxWaitFor.SelectedItem.ToString();
                         formDataToUpdate.ComparisonValue = entryComparisonValue.Text;
                         formDataToUpdate.OCRRegex = entryOCRRegex.Text;
-                        formDataToUpdate.OCRRegexGroup = Convert.ToInt32(entryOCRRegexGroup.Text);
-                        formDataToUpdate.ScaleFactor = Convert.ToInt32(entryScaleFactor.Text);
-                        formDataToUpdate.ColorMatches = comboBoxColorMatches.SelectedItem.ToString();
-                        formDataToUpdate.SleepBetweenCaptures = Convert.ToInt32(entrySleepBetweenCaptures.Text);
-                        formDataToUpdate.CapturePerInterval = Convert.ToInt32(entryCapturePerInterval.Text);
+                        formDataToUpdate.OCRRegexGroup = entryOCRRegexGroup.Text;
+                        formDataToUpdate.ScaleFactor = entryScaleFactor.Text;
+                        formDataToUpdate.ColorMatches = comboBoxColorMatches.SelectedIndex == -1 ? "" : comboBoxColorMatches.SelectedItem.ToString();
+                        formDataToUpdate.SleepBetweenCaptures = entrySleepBetweenCaptures.Text;
+                        formDataToUpdate.CapturePerInterval = entryCapturePerInterval.Text;
                         formDataToUpdate.MatchCaptures = comboBoxMatchCaptures.SelectedItem.ToString();
                         formDataToUpdate.PostRequestUrl = entryPostRequestUrl.Text;
                         formDataToUpdate.PostMessage = entryPostMessage.Text;
@@ -782,7 +782,7 @@ namespace DesktopActivityChecker
                         {
                             if (isFirstRun == true)
                             {
-                                int firstCaptureAnimationTime = (int)Math.Round((double)formData.RepeatTime / 2);
+                                int firstCaptureAnimationTime = (int)Math.Round(Convert.ToDouble(formData.RepeatTime) / 2);
                                 firstCaptureAnimationTime = (firstCaptureAnimationTime > 10 ? 10 : firstCaptureAnimationTime) * 1000;
                                 originalImage = getImageFromCoordinatesOfFormData(formData, firstCaptureAnimationTime);
                                 originalImageStringBase64 = ConvertImageToBase64(originalImage);
@@ -791,9 +791,9 @@ namespace DesktopActivityChecker
                             }
                             bool isAlert = false;
                             int noOfValidCaptures = 0;
-                            for (int i = 0; i < formData.CapturePerInterval; i++)
+                            for (int i = 0; i < Convert.ToInt32(formData.CapturePerInterval); i++)
                             {
-                                int timeout = formData.SleepBetweenCaptures > 200 ? (formData.SleepBetweenCaptures / 2 > 2000 ? formData.SleepBetweenCaptures - 2000 : formData.SleepBetweenCaptures / 2) : 100;
+                                int timeout = Convert.ToInt32(formData.SleepBetweenCaptures) > 200 ? (Convert.ToInt32(formData.SleepBetweenCaptures) / 2 > 2000 ? Convert.ToInt32(formData.SleepBetweenCaptures) - 2000 : Convert.ToInt32(formData.SleepBetweenCaptures) / 2) : 100;
                                 Image newImage = getImageFromCoordinatesOfFormData(formData, timeout);
                                 string newImageStringBase64 = ConvertImageToBase64(newImage);
 
@@ -807,13 +807,13 @@ namespace DesktopActivityChecker
                                     }
                                     noOfValidCaptures++;
                                 }
-                                Thread.Sleep(formData.SleepBetweenCaptures);
+                                Thread.Sleep(Convert.ToInt32(formData.SleepBetweenCaptures));
                             }
                             if (formData.ComparisonOption == "Match from Last Capture")
                             {
                                 originalImage = getImageFromCoordinatesOfFormData(formData);
                             }
-                            if (formData.MatchCaptures == "All" && noOfValidCaptures == formData.CapturePerInterval)
+                            if (formData.MatchCaptures == "All" && noOfValidCaptures == Convert.ToInt32(formData.CapturePerInterval))
                             {
                                 isAlert = true;
                             }
@@ -829,7 +829,7 @@ namespace DesktopActivityChecker
                         {
                             // Thread.Sleep(5000); // Sleep for 5 seconds
                             Thread.Sleep((5 + (int)Math.Round(formData.Id * 1.5)) * 1000);
-                            timer = new System.Threading.Timer(callback, null, TimeSpan.Zero, TimeSpan.FromSeconds(formData.RepeatTime));
+                            timer = new System.Threading.Timer(callback, null, TimeSpan.Zero, TimeSpan.FromSeconds(Convert.ToInt32(formData.RepeatTime)));
                         }).Start();
                     }
                     else if (formData.ComparisonOption == "OCR compare")
@@ -844,20 +844,20 @@ namespace DesktopActivityChecker
                             }
                             bool isAlert = false;
                             int noOfValidCaptures = 0;
-                            for (int i = 0; i < formData.CapturePerInterval; i++)
+                            for (int i = 0; i < Convert.ToInt32(formData.CapturePerInterval); i++)
                             {
                                 TaskSettings taskSettings = TaskSettings.GetDefaultTaskSettings();
                                 OCROptions options = taskSettings.CaptureSettingsReference.OCROptions;
 
-                                int timeout = formData.SleepBetweenCaptures > 200 ? (formData.SleepBetweenCaptures / 2 > 2000 ? formData.SleepBetweenCaptures - 2000 : formData.SleepBetweenCaptures / 2) : 100;
+                                int timeout = Convert.ToInt32(formData.SleepBetweenCaptures) > 200 ? (Convert.ToInt32(formData.SleepBetweenCaptures) / 2 > 2000 ? Convert.ToInt32(formData.SleepBetweenCaptures) - 2000 : Convert.ToInt32(formData.SleepBetweenCaptures) / 2) : 100;
                                 Image newImage = getImageFromCoordinatesOfFormData(formData, timeout);
 
-                                string capturedText = await OCRHelper.OCR((Bitmap)newImage, options.Language, (float)formData.ScaleFactor, options.SingleLine);
+                                string capturedText = await OCRHelper.OCR((Bitmap)newImage, options.Language, float.Parse(formData.ScaleFactor), options.SingleLine);
                                 Console.WriteLine("====================================================================================================");
                                 Console.WriteLine("Captured Text: " + capturedText);
                                 Regex regex = new Regex(Regex.Escape(formData.OCRRegex));
                                 Match match = regex.Match(capturedText);
-                                if (match.Success && match.Groups.Count > formData.OCRRegexGroup)
+                                if (match.Success && match.Groups.Count > Convert.ToInt32(formData.OCRRegexGroup))
                                 {
                                     string result = match.Groups[formData.OCRRegexGroup].Value;
                                     Console.WriteLine("Regex Group Text To Compare (result): " + result);
@@ -881,9 +881,9 @@ namespace DesktopActivityChecker
                                         noOfValidCaptures++;
                                     }
                                 }
-                                Thread.Sleep(formData.SleepBetweenCaptures);
+                                Thread.Sleep(Convert.ToInt32(formData.SleepBetweenCaptures));
                             }
-                            if (formData.MatchCaptures == "All" && noOfValidCaptures == formData.CapturePerInterval)
+                            if (formData.MatchCaptures == "All" && noOfValidCaptures == Convert.ToInt32(formData.CapturePerInterval))
                             {
                                 isAlert = true;
                             }
@@ -896,7 +896,7 @@ namespace DesktopActivityChecker
                             }
                             else
                             {
-                                timer.Change(TimeSpan.FromSeconds(formData.RepeatTime), Timeout.InfiniteTimeSpan);
+                                timer.Change(TimeSpan.FromSeconds(Convert.ToInt32(formData.RepeatTime)), Timeout.InfiniteTimeSpan);
                             }
                         };
                         new Thread(() =>
@@ -917,10 +917,10 @@ namespace DesktopActivityChecker
                             }
                             bool isAlert = false;
                             int noOfValidCaptures = 0;
-                            for (int i = 0; i < formData.CapturePerInterval; i++)
+                            for (int i = 0; i < Convert.ToInt32(formData.CapturePerInterval); i++)
                             {
                                 string[] colors = entryComparisonValue.Text.Split(',');
-                                int timeout = formData.SleepBetweenCaptures > 200 ? (formData.SleepBetweenCaptures / 2 > 2000 ? formData.SleepBetweenCaptures - 2000 : formData.SleepBetweenCaptures / 2) : 100;
+                                int timeout = Convert.ToInt32(formData.SleepBetweenCaptures) > 200 ? (Convert.ToInt32(formData.SleepBetweenCaptures) / 2 > 2000 ? Convert.ToInt32(formData.SleepBetweenCaptures) - 2000 : Convert.ToInt32(formData.SleepBetweenCaptures) / 2) : 100;
                                 Image newImage = getImageFromCoordinatesOfFormData(formData, timeout);
 
                                 Bitmap bitmap = new Bitmap(newImage);
@@ -983,9 +983,9 @@ namespace DesktopActivityChecker
                                     }
                                     noOfValidCaptures++;
                                 }
-                                Thread.Sleep(formData.SleepBetweenCaptures);
+                                Thread.Sleep(Convert.ToInt32(formData.SleepBetweenCaptures));
                             }
-                            if (formData.MatchCaptures == "All" && noOfValidCaptures == formData.CapturePerInterval)
+                            if (formData.MatchCaptures == "All" && noOfValidCaptures == Convert.ToInt32(formData.CapturePerInterval))
                             {
                                 isAlert = true;
                             }
@@ -1000,7 +1000,7 @@ namespace DesktopActivityChecker
                         new Thread(() =>
                         {
                             Thread.Sleep((5 + (int)Math.Round(formData.Id * 1.5)) * 1000);
-                            timer = new System.Threading.Timer(callback, null, TimeSpan.Zero, TimeSpan.FromSeconds(formData.RepeatTime));
+                            timer = new System.Threading.Timer(callback, null, TimeSpan.Zero, TimeSpan.FromSeconds(Convert.ToInt32(formData.RepeatTime)));
                         }).Start();
                     }
                     else if (formData.ComparisonOption == "Check same color background")
@@ -1015,9 +1015,9 @@ namespace DesktopActivityChecker
                             }
                             bool isAlert = false;
                             int noOfValidCaptures = 0;
-                            for (int i = 0; i < formData.CapturePerInterval; i++)
+                            for (int i = 0; i < Convert.ToInt32(formData.CapturePerInterval); i++)
                             {
-                                int timeout = formData.SleepBetweenCaptures > 200 ? (formData.SleepBetweenCaptures / 2 > 2000 ? formData.SleepBetweenCaptures - 2000 : formData.SleepBetweenCaptures / 2) : 100;
+                                int timeout = Convert.ToInt32(formData.SleepBetweenCaptures) > 200 ? (Convert.ToInt32(formData.SleepBetweenCaptures) / 2 > 2000 ? Convert.ToInt32(formData.SleepBetweenCaptures) - 2000 : Convert.ToInt32(formData.SleepBetweenCaptures) / 2) : 100;
                                 Image newImage = getImageFromCoordinatesOfFormData(formData, timeout);
 
                                 Bitmap bitmap = new Bitmap(newImage);
@@ -1043,9 +1043,9 @@ namespace DesktopActivityChecker
                                     }
                                     noOfValidCaptures++;
                                 }
-                                Thread.Sleep(formData.SleepBetweenCaptures);
+                                Thread.Sleep(Convert.ToInt32(formData.SleepBetweenCaptures));
                             }
-                            if (formData.MatchCaptures == "All" && noOfValidCaptures == formData.CapturePerInterval)
+                            if (formData.MatchCaptures == "All" && noOfValidCaptures == Convert.ToInt32(formData.CapturePerInterval))
                             {
                                 isAlert = true;
                             }
@@ -1060,7 +1060,7 @@ namespace DesktopActivityChecker
                         new Thread(() =>
                         {
                             Thread.Sleep((5 + (int)Math.Round(formData.Id * 1.5)) * 1000);
-                            timer = new System.Threading.Timer(callback, null, TimeSpan.Zero, TimeSpan.FromSeconds(formData.RepeatTime));
+                            timer = new System.Threading.Timer(callback, null, TimeSpan.Zero, TimeSpan.FromSeconds(Convert.ToInt32(formData.RepeatTime)));
                         }).Start();
                     }
                 }
@@ -1071,7 +1071,7 @@ namespace DesktopActivityChecker
         {
             SettingManager.LoadInitialSettings();
             TaskSettings taskSettings = TaskSettings.GetDefaultTaskSettings();
-            Rectangle rect = new Rectangle(formData.X, formData.Y, formData.Width, formData.Height);
+            Rectangle rect = new Rectangle(Convert.ToInt32(formData.X), Convert.ToInt32(formData.Y), Convert.ToInt32(formData.Width), Convert.ToInt32(formData.Height));
             Task.Run(() =>
             {
                 // Create and show the capture section drawing form
