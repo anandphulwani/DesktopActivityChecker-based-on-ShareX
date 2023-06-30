@@ -588,6 +588,7 @@ namespace DesktopActivityChecker
                 entryOCRRegexGroup.Visible = true;
                 labelScaleFactor.Visible = true;
                 entryScaleFactor.Visible = true;
+                entryScaleFactor.Text = "4";
                 labelColorMatches.Visible = false;
                 comboBoxColorMatches.Visible = false;
             }
