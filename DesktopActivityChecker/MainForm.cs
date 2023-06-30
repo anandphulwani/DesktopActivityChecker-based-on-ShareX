@@ -769,13 +769,14 @@ namespace DesktopActivityChecker
 
         public void ExecuteRecordsInInterval(List<FormData> existingFormDataList)
         {
-            foreach (var formData in existingFormDataList)
+            for (int mainCnt = 0; mainCnt < existingFormDataList.Count; mainCnt++)
             {
+                int enabledCount = 0;
+                var formData = existingFormDataList[mainCnt];
                 if (formData.Enabled)
                 {
                     TimerCallback callback;
                     System.Threading.Timer timer = null;
-
 
                     if (formData.ComparisonOption == "Match from Initial Capture" || formData.ComparisonOption == "Match from Last Capture")
                     {
@@ -832,7 +833,7 @@ namespace DesktopActivityChecker
                         new Thread(() =>
                         {
                             // Thread.Sleep(5000); // Sleep for 5 seconds
-                            Thread.Sleep((5 + (int)Math.Round(formData.Id * 1.5)) * 1000);
+                            Thread.Sleep((5 + (int)Math.Round(enabledCount * 0.5)) * 1000);
                             timer = new System.Threading.Timer(callback, null, TimeSpan.Zero, TimeSpan.FromSeconds(Convert.ToInt32(formData.RepeatTime)));
                         }).Start();
                     }
@@ -905,7 +906,7 @@ namespace DesktopActivityChecker
                         };
                         new Thread(() =>
                         {
-                            Thread.Sleep((5 + (int)Math.Round(formData.Id * 1.5)) * 1000);
+                            Thread.Sleep((5 + (int)Math.Round(enabledCount * 0.5)) * 1000);
                             timer = new System.Threading.Timer(callback, null, TimeSpan.Zero, Timeout.InfiniteTimeSpan);
                         }).Start();   
                     }
@@ -1003,7 +1004,7 @@ namespace DesktopActivityChecker
                         };
                         new Thread(() =>
                         {
-                            Thread.Sleep((5 + (int)Math.Round(formData.Id * 1.5)) * 1000);
+                            Thread.Sleep((5 + (int)Math.Round(enabledCount * 0.5)) * 1000);
                             timer = new System.Threading.Timer(callback, null, TimeSpan.Zero, TimeSpan.FromSeconds(Convert.ToInt32(formData.RepeatTime)));
                         }).Start();
                     }
@@ -1063,10 +1064,11 @@ namespace DesktopActivityChecker
                         };
                         new Thread(() =>
                         {
-                            Thread.Sleep((5 + (int)Math.Round(formData.Id * 1.5)) * 1000);
+                            Thread.Sleep((5 + (int)Math.Round(enabledCount * 0.5)) * 1000);
                             timer = new System.Threading.Timer(callback, null, TimeSpan.Zero, TimeSpan.FromSeconds(Convert.ToInt32(formData.RepeatTime)));
                         }).Start();
                     }
+                    enabledCount++;
                 }
             }
         }
