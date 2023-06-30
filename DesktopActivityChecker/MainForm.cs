@@ -297,7 +297,7 @@ namespace DesktopActivityChecker
             entryOCRRegex.Clear();
             entryOCRRegexGroup.Clear();
             entryScaleFactor.Clear();
-            comboBoxColorMatches.SelectedIndex = 0;
+            comboBoxColorMatches.SelectedIndex = -1;
             entrySleepBetweenCaptures.Clear();
             entryCapturePerInterval.Clear();
             comboBoxMatchCaptures.SelectedIndex = 0;
