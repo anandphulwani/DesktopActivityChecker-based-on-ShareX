@@ -408,6 +408,7 @@ namespace DesktopActivityChecker
 
                     dataGridView1.DataSource = ReadExistingFormDataFromJson();
                     buttonCreate.Text = "Create";
+                    mainTabControl.SelectTab(tabEntriesTable);
                 }
                 catch (Exception ex)
                 {
@@ -538,6 +539,7 @@ namespace DesktopActivityChecker
                     }
                     dataGridView1.DataSource = ReadExistingFormDataFromJson();
                     buttonCreate.Text = "Create";
+                    mainTabControl.SelectTab(tabEntriesTable);
                 }
                 catch (Exception ex)
                 {
