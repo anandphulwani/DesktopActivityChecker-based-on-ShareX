@@ -1100,20 +1100,20 @@ namespace DesktopActivityChecker
         public bool Enabled { get; set; }
         public int Id { get; set; }
         public string Name { get; set; }
-        public int X { get; set; }
-        public int Y { get; set; }
-        public int Width { get; set; }
-        public int Height { get; set; }
-        public int RepeatTime { get; set; }
+        public string X { get; set; }
+        public string Y { get; set; }
+        public string Width { get; set; }
+        public string Height { get; set; }
+        public string RepeatTime { get; set; }
         public string ComparisonOption { get; set; }
         public string WaitFor { get; set; }
         public string ComparisonValue { get; set; }
         public string OCRRegex { get; set; }
-        public int OCRRegexGroup { get; set; }
-        public int ScaleFactor { get; set; }
+        public string OCRRegexGroup { get; set; }
+        public string ScaleFactor { get; set; }
         public string ColorMatches { get; set; }
-        public int SleepBetweenCaptures { get; set; }
-        public int CapturePerInterval { get; set; }
+        public string SleepBetweenCaptures { get; set; }
+        public string CapturePerInterval { get; set; }
         public string MatchCaptures { get; set; }
         public string PostRequestUrl { get; set; }
         public string PostMessage { get; set; }
