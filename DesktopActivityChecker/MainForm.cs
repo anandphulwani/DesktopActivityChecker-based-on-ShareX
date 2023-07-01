@@ -817,8 +817,8 @@ namespace DesktopActivityChecker
                 var formData = existingFormDataList[mainCnt];
                 if (formData.Enabled)
                 {
-                    System.Threading.Timer timer = null;
-                    ExecuteEntry(formData, timer, enabledCount);
+                    ExecuteEntry(formData, enabledCount);
+
                     #pragma warning disable IDE0059 // Unnecessary assignment of a value
                     enabledCount++;
                     #pragma warning restore IDE0059 // Unnecessary assignment of a value
@@ -826,8 +826,9 @@ namespace DesktopActivityChecker
             }
         }
 
-        public void ExecuteEntry(FormData formData, System.Threading.Timer timer, int enabledCount)
+        public void ExecuteEntry(FormData formData, int enabledCount)
         {
+            System.Threading.Timer timer = null;
             TimerCallback callback;
             if (formData.ComparisonOption == "Match from Initial Capture" || formData.ComparisonOption == "Match from Last Capture")
             {
