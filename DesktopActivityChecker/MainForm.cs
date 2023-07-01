@@ -692,17 +692,7 @@ namespace DesktopActivityChecker
         }
         #endregion
 
-        #region tabControl_SelectedIndexChanged and dataGridView GUI Event Handlers
-        private void tabControl_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            TabControl tabControl = (TabControl)sender;
-            TabPage selectedTab = tabControl.SelectedTab;
-            if (tabControl.SelectedIndex == 1)
-            { 
-                DataGridView tableControl = selectedTab.Controls.OfType<DataGridView>().FirstOrDefault();
-                tableControl?.Focus();
-            }
-        }
+        #region dataGridView GUI Event Handlers
 
         private void dataGridView1_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
         {
