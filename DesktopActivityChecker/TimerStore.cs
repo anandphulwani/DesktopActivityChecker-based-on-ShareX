@@ -27,6 +27,13 @@ namespace DesktopActivityChecker
 
         public void RemoveTimer(int key)
         {
+            if (timersDict.TryGetValue(key, out Timer timer))
+            {
+                if (timer != null)
+                { 
+                    timer.Dispose();
+                }
+            }
             timersDict.Remove(key);
         }
 
