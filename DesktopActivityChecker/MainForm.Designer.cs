@@ -145,7 +145,7 @@ namespace DesktopActivityChecker
             this.tableLayoutMain.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutMain.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 0F));
             this.tableLayoutMain.Size = new System.Drawing.Size(1028, 590);
-            this.tableLayoutMain.TabIndex = 26;
+            this.tableLayoutMain.TabIndex = 0;
             // 
             // panelMain
             // 
@@ -197,7 +197,7 @@ namespace DesktopActivityChecker
             this.panelMain.Location = new System.Drawing.Point(283, 3);
             this.panelMain.Name = "panelMain";
             this.panelMain.Size = new System.Drawing.Size(462, 584);
-            this.panelMain.TabIndex = 27;
+            this.panelMain.TabIndex = 0;
             // 
             // comboBoxColorMatches
             // 
