@@ -9,14 +9,14 @@ namespace DesktopActivityChecker
 {
     public class TimerStore
     {
-        private Dictionary<string, Timer> timersDict = new Dictionary<string, Timer>();
+        private Dictionary<int, Timer> timersDict = new Dictionary<int, Timer>();
 
-        public void AddTimer(string key, Timer timer)
+        public void AddTimer(int key, Timer timer)
         {
             timersDict[key] = timer;
         }
 
-        public Timer GetTimer(string key)
+        public Timer GetTimer(int key)
         {
             if (timersDict.TryGetValue(key, out Timer timer))
             {
@@ -25,7 +25,7 @@ namespace DesktopActivityChecker
             return null;
         }
 
-        public void RemoveTimer(string key)
+        public void RemoveTimer(int key)
         {
             timersDict.Remove(key);
         }
