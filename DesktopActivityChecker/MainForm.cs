@@ -755,7 +755,17 @@ namespace DesktopActivityChecker
                 string name = Convert.ToString(dataGridView1.Rows[rowIndex].Cells["NameOfEntry"].Value);
                 if (dataGridView1.Columns[columnIndex].Name == "isEnabled")
                 {
-                    UpdateEnabledDisabled(id, !Convert.ToBoolean(dataGridView1.Rows[rowIndex].Cells["Enabled"].Value));
+                    UpdateEnabledDisabled(id, !Convert.ToBoolean(dataGridView1.Rows[rowIndex].Cells["isEnabled"].Value));
+                    Task.Run(() =>
+                    {
+                        Thread.Sleep(150);
+                        dataGridView1.Invoke(new Action(() =>
+                        {
+                            dataGridView1.DataSource = ReadExistingFormDataFromJson();
+                            dataGridView1.CurrentCell = dataGridView1.Rows[rowIndex].Cells[columnIndex];
+                            dataGridView1.FirstDisplayedScrollingRowIndex = rowIndex;
+                        }));
+                    });
                 }
                 else if(dataGridView1.Columns[columnIndex].Name == "Edit")
                 {
