@@ -1134,6 +1134,62 @@ namespace DesktopActivityChecker
                 return base64String;
             }
         }
+
+        public async void LaunchNotification(FormData formData)
+        {
+            using (HttpClient client = new HttpClient())
+            {
+                string message =
+                    "Additional Information: \n" +
+                    "    " + "Name: " + formData.Name + " (" + formData.Id + ")\n" +
+                    "    " + "Capture X,Y (W,H): " + formData.X + "," + formData.Y + " (" + formData.Width + "," + formData.Height + ")\n" +
+                    "    " + "Comparison Option: " + formData.ComparisonOption + "\n" +
+                    "    " + "Wait For: " + formData.WaitFor + "\n";
+                if (formData.ComparisonOption == "Match from Initial Capture" || formData.ComparisonOption == "Match from Last Capture")
+                {
+                    // Do Nothing
+                }
+                else if (formData.ComparisonOption == "OCR compare")
+                {
+                    message +=
+                    "    " + "Value To Compare: " + formData.ComparisonValue + "\n" +
+                    "    " + "OCR Regex: " + formData.OCRRegex + "\n" +
+                    "    " + "OCR Regex Group: " + formData.OCRRegexGroup + "\n" +
+                    "    " + "Scale Factor: " + formData.ScaleFactor + "\n";
+                }
+                else if (formData.ComparisonOption == "Check pixel color present")
+                {
+                    message +=
+                    "    " + "Color To Compare: " + formData.ComparisonValue + "\n" +
+                    "    " + "Color Matches: " + formData.ColorMatches + "\n";
+                }
+                else if (formData.ComparisonOption == "Check same color background")
+                {
+                    // Do Nothing
+                }
+                message +=
+                    "    " + "Sleep between Captures: " + formData.SleepBetweenCaptures + "\n" +
+                    "    " + "Capture per Interval: " + formData.CapturePerInterval + "\n" +
+                    "    " + "Match Captures: " + formData.MatchCaptures + "\n";
+                StringContent content = new StringContent(formData.PostMessage + message);
+                content.Headers.ContentType.MediaType = "text/plain";
+                client.DefaultRequestHeaders.Add("Title", "Name: " + formData.Name + " (" + formData.Id + ")");
+                // client.DefaultRequestHeaders.Add("Priority", "urgent");
+                // client.DefaultRequestHeaders.Add("Tags", "warning,skull");
+                client.DefaultRequestHeaders.Add("Tags", "bell");
+                // HttpResponseMessage response = await client.PostAsync(formData.PostRequestUrl, content);
+                HttpResponseMessage response = await client.PostAsync("https://ntfy.sh/alert", content);
+                if (response.IsSuccessStatusCode)
+                {
+                    string responseBody = await response.Content.ReadAsStringAsync();
+                    // Console.WriteLine("Response: " + responseBody);
+                }
+                else
+                {
+                    Console.WriteLine("Request failed with status code: " + response.StatusCode);
+                }
+            }
+        }
     }
 
     public class FormData
