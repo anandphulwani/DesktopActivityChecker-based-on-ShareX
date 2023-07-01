@@ -1241,11 +1241,12 @@ namespace DesktopActivityChecker
         {
             if (e.Button == MouseButtons.Left)
             {
+                mainform.Activate();
+                mainform.Show();
                 if (mainform.WindowState == FormWindowState.Minimized)
                 {
                     mainform.WindowState = FormWindowState.Normal;
                 }
-                mainform.Activate();
             }
         }
 
