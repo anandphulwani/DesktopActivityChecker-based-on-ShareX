@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Drawing;
+using System.Net.Http;
 using System.Text.RegularExpressions;
 using System.Collections.Generic;
 using System.Windows.Forms;
@@ -8,8 +9,6 @@ using Newtonsoft.Json;
 using ShareX;
 using ShareX.ScreenCaptureLib;
 using System.Threading;
-using ShareX.HelpersLib;
-using System.Drawing.Imaging;
 using System.Threading.Tasks;
 using System.Linq;
 
