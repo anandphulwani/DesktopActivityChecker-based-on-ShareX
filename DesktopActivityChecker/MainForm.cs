@@ -73,7 +73,7 @@ namespace DesktopActivityChecker
             }
         }
 
-        #region MainForm FormClosed, FormClosing, Resize, MouseClick
+        #region MainForm FormClosing
         private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
         {
             if (e.CloseReason == CloseReason.UserClosing)
@@ -263,6 +263,7 @@ namespace DesktopActivityChecker
             return Path.Combine(projectDirectory, "./datastore/entries.json");
         }
 
+        #region GetDataFromFields() and ClearAllFields()
         private FormData GetDataFromFields()
         {
             return new FormData
@@ -318,7 +319,9 @@ namespace DesktopActivityChecker
             entrySleepBetweenCaptures.Text = "250";
             entryCapturePerInterval.Text = "10";
         }
+        #endregion
 
+        #region JSON Functions
         private static int ReadLastIdFromJson()
         {
             string filePath = GetDataStorePath();
@@ -397,6 +400,7 @@ namespace DesktopActivityChecker
             }
             return new List<FormData>();
         }
+        #endregion
 
         #region Crud Operations
         private void AddEntry()
@@ -707,7 +711,7 @@ namespace DesktopActivityChecker
         }
         #endregion
 
-        #region dataGridView GUI Event Handlers
+        #region tabControl_SelectedIndexChanged and dataGridView GUI Event Handlers
         private void dataGridView1_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
         {
             if (dataGridView1.Columns[e.ColumnIndex].Name == "Edit")
