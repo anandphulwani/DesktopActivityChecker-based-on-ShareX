@@ -524,6 +524,8 @@ namespace DesktopActivityChecker
                     FormData formDataToUpdate = formData.Find(p => p.Id == newFormData.Id);
                     if (formDataToUpdate != null)
                     {
+                        bool oldFormdataEnabled = formDataToUpdate.Enabled;
+
                         formDataToUpdate.Id = Convert.ToInt32(entryId.Text);
                         formDataToUpdate.Name = entryName.Text;
                         formDataToUpdate.X = entryX.Text;
@@ -552,6 +554,15 @@ namespace DesktopActivityChecker
                         lastPostRequestURL = entryPostRequestUrl.Text;
                         lastPostMessage = entryPostMessage.Text;
                         ClearAllFields();
+
+                        if (oldFormdataEnabled)
+                        {
+                            timerStore.RemoveTimer(formDataToUpdate.Id);
+                        }
+                        if (formDataToUpdate.Enabled)
+                        { 
+                            ExecuteEntry(formDataToUpdate, 0);
+                        }
                     }
                     dataGridView1.DataSource = ReadExistingFormDataFromJson();
                     buttonCreate.Text = "Create";
