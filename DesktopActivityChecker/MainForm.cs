@@ -27,7 +27,6 @@ namespace DesktopActivityChecker
         public MainForm()
         {
             FormBorderStyle = FormBorderStyle.FixedSingle;
-            WindowState = FormWindowState.Minimized;
             ShowInTaskbar = true;
 
             byte[] iconBytesWhite = Convert.FromBase64String(activityBase64ContentWhite);
@@ -40,7 +39,6 @@ namespace DesktopActivityChecker
 
             Icon = titleBarIcon;
             FormClosing += MainForm_FormClosing;
-            Resize += MainForm_Resize;
 
             InitializeComponent();
             comboBoxComparisonOption.SelectedIndex = 0;
@@ -73,13 +71,6 @@ namespace DesktopActivityChecker
             }
         }
 
-        private void MainForm_Resize(object sender, EventArgs e)
-        {
-            if (WindowState == FormWindowState.Minimized)
-            {
-                Hide(); // Hide the form when minimized
-            }
-        }
         #endregion
 
         #region Validations definitions and execution
