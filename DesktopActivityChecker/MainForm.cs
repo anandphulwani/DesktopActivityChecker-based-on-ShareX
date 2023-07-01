@@ -28,7 +28,7 @@ namespace DesktopActivityChecker
         {
             FormBorderStyle = FormBorderStyle.FixedSingle;
             WindowState = FormWindowState.Minimized;
-            ShowInTaskbar = false;
+            ShowInTaskbar = true;
 
             byte[] iconBytesWhite = Convert.FromBase64String(activityBase64ContentWhite);
             Icon titleBarIcon;
