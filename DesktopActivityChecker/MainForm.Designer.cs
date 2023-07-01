@@ -517,7 +517,7 @@ namespace DesktopActivityChecker
             this.labelHeight.Location = new System.Drawing.Point(248, 137);
             this.labelHeight.Name = "labelHeight";
             this.labelHeight.Size = new System.Drawing.Size(41, 13);
-            this.labelHeight.TabIndex = 32;
+            this.labelHeight.TabIndex = 0;
             this.labelHeight.Text = "Height:";
             // 
             // entryWidth
