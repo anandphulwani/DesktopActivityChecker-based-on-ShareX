@@ -893,6 +893,7 @@ namespace DesktopActivityChecker
                     // Thread.Sleep(5000); // Sleep for 5 seconds
                     Thread.Sleep((5 + (int)Math.Round(enabledCount * 0.5)) * 1000);
                     timer = new System.Threading.Timer(callback, null, TimeSpan.Zero, TimeSpan.FromSeconds(Convert.ToInt32(formData.RepeatTime)));
+                    timerStore.AddTimer(formData.Id, timer);
                 }).Start();
             }
             else if (formData.ComparisonOption == "OCR compare")
@@ -971,6 +972,7 @@ namespace DesktopActivityChecker
                 {
                     Thread.Sleep((5 + (int)Math.Round(enabledCount * 0.5)) * 1000);
                     timer = new System.Threading.Timer(callback, null, TimeSpan.Zero, Timeout.InfiniteTimeSpan);
+                    timerStore.AddTimer(formData.Id, timer);
                 }).Start();
             }
             else if (formData.ComparisonOption == "Check pixel color present")
@@ -1074,6 +1076,7 @@ namespace DesktopActivityChecker
                 {
                     Thread.Sleep((5 + (int)Math.Round(enabledCount * 0.5)) * 1000);
                     timer = new System.Threading.Timer(callback, null, TimeSpan.Zero, TimeSpan.FromSeconds(Convert.ToInt32(formData.RepeatTime)));
+                    timerStore.AddTimer(formData.Id, timer);
                 }).Start();
             }
             else if (formData.ComparisonOption == "Check same color background")
@@ -1142,6 +1145,7 @@ namespace DesktopActivityChecker
                 {
                     Thread.Sleep((5 + (int)Math.Round(enabledCount * 0.5)) * 1000);
                     timer = new System.Threading.Timer(callback, null, TimeSpan.Zero, TimeSpan.FromSeconds(Convert.ToInt32(formData.RepeatTime)));
+                    timerStore.AddTimer(formData.Id, timer);
                 }).Start();
             }
         }
