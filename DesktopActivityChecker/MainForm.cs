@@ -24,6 +24,8 @@ namespace DesktopActivityChecker
         private string lastPostRequestURL = ReadLastPostRequertURLFromJson();
         private string lastPostMessage = ReadLastPostMessageFromJson();
 
+        TimerStore timerStore = new TimerStore();
+
         public MainForm()
         {
             FormBorderStyle = FormBorderStyle.FixedSingle;
@@ -540,9 +542,10 @@ namespace DesktopActivityChecker
                         
                         string jsonData = JsonConvert.SerializeObject(formData, Formatting.Indented);
                         File.WriteAllText(filePath, jsonData);
+                        MessageBox.Show("Form data has been updated to the JSON file.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
                         lastPostRequestURL = entryPostRequestUrl.Text;
                         lastPostMessage = entryPostMessage.Text;
-                        MessageBox.Show("Form data has been updated to the JSON file.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         ClearAllFields();
                     }
                     dataGridView1.DataSource = ReadExistingFormDataFromJson();
