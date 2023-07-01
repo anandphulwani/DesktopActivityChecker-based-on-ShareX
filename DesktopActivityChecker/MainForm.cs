@@ -583,7 +583,15 @@ namespace DesktopActivityChecker
             FormData formDataToUpdate = formData.Find(p => p.Id == id);
             if (formDataToUpdate != null)
             {
+                if (formDataToUpdate.Enabled)
+                {
+                    timerStore.RemoveTimer(formDataToUpdate.Id);
+                }
                 formDataToUpdate.Enabled = isEnabled;
+                if (formDataToUpdate.Enabled)
+                {
+                    ExecuteEntry(formDataToUpdate, 0);
+                }
                 string jsonData = JsonConvert.SerializeObject(formData, Formatting.Indented);
                 File.WriteAllText(filePath, jsonData);
             }
