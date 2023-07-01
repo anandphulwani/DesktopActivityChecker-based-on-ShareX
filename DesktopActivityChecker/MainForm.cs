@@ -815,8 +815,328 @@ namespace DesktopActivityChecker
                 if (formData.Enabled)
                 {
                     System.Threading.Timer timer = null;
+                    ExecuteEntry(formData, timer, enabledCount);
                     enabledCount++;
                 }
+            }
+        }
+
+        public void ExecuteEntry(FormData formData, System.Threading.Timer timer, int enabledCount)
+        {
+            TimerCallback callback;
+            if (formData.ComparisonOption == "Match from Initial Capture" || formData.ComparisonOption == "Match from Last Capture")
+            {
+                bool isFirstRun = true;
+                Image originalImage = null;
+                string originalImageStringBase64 = null;
+                callback = state =>
+                {
+                    if (isFirstRun == true)
+                    {
+                        int firstCaptureAnimationTime = (int)Math.Round(Convert.ToDouble(formData.RepeatTime) / 2);
+                        firstCaptureAnimationTime = (firstCaptureAnimationTime > 10 ? 10 : firstCaptureAnimationTime) * 1000;
+                        originalImage = getImageFromCoordinatesOfFormData(formData, firstCaptureAnimationTime);
+                        originalImageStringBase64 = ConvertImageToBase64(originalImage);
+                        isFirstRun = false;
+                        return;
+                    }
+                    bool isAlert = false;
+                    int noOfValidCaptures = 0;
+                    for (int i = 0; i < Convert.ToInt32(formData.CapturePerInterval); i++)
+                    {
+                        int timeout = Convert.ToInt32(formData.SleepBetweenCaptures) > 200 ? (Convert.ToInt32(formData.SleepBetweenCaptures) / 2 > 2000 ? Convert.ToInt32(formData.SleepBetweenCaptures) - 2000 : Convert.ToInt32(formData.SleepBetweenCaptures) / 2) : 100;
+                        Image newImage = getImageFromCoordinatesOfFormData(formData, timeout);
+                        string newImageStringBase64 = ConvertImageToBase64(newImage);
+
+                        bool isEqual = string.Equals(originalImageStringBase64, newImageStringBase64, StringComparison.OrdinalIgnoreCase);
+                        if ((formData.WaitFor == "Equality" && isEqual) || (formData.WaitFor == "Non Equality" && !isEqual))
+                        {
+                            if (formData.MatchCaptures == "Any")
+                            {
+                                isAlert = true;
+                                break;
+                            }
+                            noOfValidCaptures++;
+                        }
+                        Thread.Sleep(Convert.ToInt32(formData.SleepBetweenCaptures));
+                    }
+                    if (formData.ComparisonOption == "Match from Last Capture")
+                    {
+                        originalImage = getImageFromCoordinatesOfFormData(formData);
+                        originalImageStringBase64 = ConvertImageToBase64(originalImage);
+                    }
+                    if (formData.MatchCaptures == "All" && noOfValidCaptures == Convert.ToInt32(formData.CapturePerInterval))
+                    {
+                        isAlert = true;
+                    }
+                    if (isAlert)
+                    {
+                        timer.Dispose();
+                        UpdateEnabledDisabled(formData.Id, false);
+                        dataGridView1.Invoke(new Action(() =>
+                        {
+                            dataGridView1.DataSource = ReadExistingFormDataFromJson();
+                        }));
+                        LaunchNotification(formData);
+                        MessageBox.Show("Time to alert now, condition met in `" + formData.ComparisonOption + "`:`" + formData.WaitFor + "`," +
+                            "Captures Per Interval: `" + formData.CapturePerInterval + "`, Matching: `" + formData.MatchCaptures + "`", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
+                };
+                new Thread(() =>
+                {
+                    // Thread.Sleep(5000); // Sleep for 5 seconds
+                    Thread.Sleep((5 + (int)Math.Round(enabledCount * 0.5)) * 1000);
+                    timer = new System.Threading.Timer(callback, null, TimeSpan.Zero, TimeSpan.FromSeconds(Convert.ToInt32(formData.RepeatTime)));
+                }).Start();
+            }
+            else if (formData.ComparisonOption == "OCR compare")
+            {
+                bool isFirstRun = true;
+                callback = async state =>
+                {
+                    if (isFirstRun == true)
+                    {
+                        isFirstRun = false;
+                        return;
+                    }
+                    bool isAlert = false;
+                    int noOfValidCaptures = 0;
+                    for (int i = 0; i < Convert.ToInt32(formData.CapturePerInterval); i++)
+                    {
+                        TaskSettings taskSettings = TaskSettings.GetDefaultTaskSettings();
+                        OCROptions options = taskSettings.CaptureSettingsReference.OCROptions;
+
+                        int timeout = Convert.ToInt32(formData.SleepBetweenCaptures) > 200 ? (Convert.ToInt32(formData.SleepBetweenCaptures) / 2 > 2000 ? Convert.ToInt32(formData.SleepBetweenCaptures) - 2000 : Convert.ToInt32(formData.SleepBetweenCaptures) / 2) : 100;
+                        Image newImage = getImageFromCoordinatesOfFormData(formData, timeout);
+
+                        string capturedText = await OCRHelper.OCR((Bitmap)newImage, options.Language, float.Parse(formData.ScaleFactor), options.SingleLine);
+                        Console.WriteLine("====================================================================================================");
+                        Console.WriteLine("Captured Text: " + capturedText);
+                        Regex regex = new Regex(Regex.Escape(formData.OCRRegex));
+                        Match match = regex.Match(capturedText);
+                        if (match.Success && match.Groups.Count > Convert.ToInt32(formData.OCRRegexGroup))
+                        {
+                            string result = match.Groups[formData.OCRRegexGroup].Value;
+                            Console.WriteLine("Regex Group Text To Compare (result): " + result);
+                            Console.WriteLine("====================================================================================================");
+                            if (
+                            formData.WaitFor == "Numeric.==" && Convert.ToInt32(result) == Convert.ToInt32(formData.ComparisonValue) ||
+                            formData.WaitFor == "Numeric.!=" && Convert.ToInt32(result) != Convert.ToInt32(formData.ComparisonValue) ||
+                            formData.WaitFor == "Numeric.>" && Convert.ToInt32(result) > Convert.ToInt32(formData.ComparisonValue) ||
+                            formData.WaitFor == "Numeric.>=" && Convert.ToInt32(result) >= Convert.ToInt32(formData.ComparisonValue) ||
+                            formData.WaitFor == "Numeric.<" && Convert.ToInt32(result) < Convert.ToInt32(formData.ComparisonValue) ||
+                            formData.WaitFor == "Numeric.<=" && Convert.ToInt32(result) <= Convert.ToInt32(formData.ComparisonValue) ||
+                            formData.WaitFor == "String.Equality" && result == formData.ComparisonValue ||
+                            formData.WaitFor == "String.Non Equality" && result != formData.ComparisonValue
+                            )
+                            {
+                                if (formData.MatchCaptures == "Any")
+                                {
+                                    isAlert = true;
+                                    break;
+                                }
+                                noOfValidCaptures++;
+                            }
+                        }
+                        Thread.Sleep(Convert.ToInt32(formData.SleepBetweenCaptures));
+                    }
+                    if (formData.MatchCaptures == "All" && noOfValidCaptures == Convert.ToInt32(formData.CapturePerInterval))
+                    {
+                        isAlert = true;
+                    }
+                    if (isAlert)
+                    {
+                        timer.Dispose();
+                        UpdateEnabledDisabled(formData.Id, false);
+                        dataGridView1.Invoke(new Action(() =>
+                        {
+                            dataGridView1.DataSource = ReadExistingFormDataFromJson();
+                        }));
+                        LaunchNotification(formData);
+                        MessageBox.Show("Time to alert now, condition met in `OCR compare`:`" + formData.WaitFor + "`," +
+                            "Captures Per Interval: `" + formData.CapturePerInterval + "`, Matching: `" + formData.MatchCaptures + "`", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
+                    else
+                    {
+                        timer.Change(TimeSpan.FromSeconds(Convert.ToInt32(formData.RepeatTime)), Timeout.InfiniteTimeSpan);
+                    }
+                };
+                new Thread(() =>
+                {
+                    Thread.Sleep((5 + (int)Math.Round(enabledCount * 0.5)) * 1000);
+                    timer = new System.Threading.Timer(callback, null, TimeSpan.Zero, Timeout.InfiniteTimeSpan);
+                }).Start();
+            }
+            else if (formData.ComparisonOption == "Check pixel color present")
+            {
+                bool isFirstRun = true;
+                callback = state =>
+                {
+                    if (isFirstRun == true)
+                    {
+                        isFirstRun = false;
+                        return;
+                    }
+                    bool isAlert = false;
+                    int noOfValidCaptures = 0;
+                    for (int i = 0; i < Convert.ToInt32(formData.CapturePerInterval); i++)
+                    {
+                        string[] colors = entryComparisonValue.Text.Split(',');
+                        int timeout = Convert.ToInt32(formData.SleepBetweenCaptures) > 200 ? (Convert.ToInt32(formData.SleepBetweenCaptures) / 2 > 2000 ? Convert.ToInt32(formData.SleepBetweenCaptures) - 2000 : Convert.ToInt32(formData.SleepBetweenCaptures) / 2) : 100;
+                        Image newImage = getImageFromCoordinatesOfFormData(formData, timeout);
+
+                        Bitmap bitmap = new Bitmap(newImage);
+                        Color referenceColor = bitmap.GetPixel(0, 0);
+                        bool? areColorsFound = null;
+                        areColorsFound = formData.WaitFor == "Present" ? false : areColorsFound;
+                        areColorsFound = formData.WaitFor == "Not Present" ? true : areColorsFound;
+                        for (int y = 0; y < bitmap.Height; y++)
+                        {
+                            for (int x = 0; x < bitmap.Width; x++)
+                            {
+                                string pixelColor = bitmap.GetPixel(x, y).ToString();
+                                if (Array.IndexOf(colors, pixelColor) != -1)
+                                {
+                                    if (formData.WaitFor == "Present" && formData.ColorMatches == "Any")
+                                    {
+                                        areColorsFound = true;
+                                        goto endOfOuterLoop;
+                                    }
+                                    if (formData.WaitFor == "Present" && formData.ColorMatches == "All")
+                                    {
+                                        List<string> colorsList = colors.ToList();
+                                        colorsList.Remove(pixelColor);
+                                        colors = colorsList.ToArray();
+                                        if (colors.Length == 0)
+                                        {
+                                            areColorsFound = true;
+                                            goto endOfOuterLoop;
+                                        }
+                                    }
+                                }
+                                else
+                                {
+                                    if (formData.WaitFor == "Not Present" && formData.ColorMatches == "Any")
+                                    {
+                                        areColorsFound = false;
+                                        goto endOfOuterLoop;
+                                    }
+                                    if (formData.WaitFor == "Not Present" && formData.ColorMatches == "All")
+                                    {
+                                        List<string> colorsList = colors.ToList();
+                                        colorsList.Remove(pixelColor);
+                                        colors = colorsList.ToArray();
+                                        if (colors.Length == 0)
+                                        {
+                                            areColorsFound = false;
+                                            goto endOfOuterLoop;
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    endOfOuterLoop:
+                        if ((formData.WaitFor == "Present" && (areColorsFound ?? false)) || (formData.WaitFor == "Not Present" && !(areColorsFound ?? true)))
+                        {
+                            if (formData.MatchCaptures == "Any")
+                            {
+                                isAlert = true;
+                                break;
+                            }
+                            noOfValidCaptures++;
+                        }
+                        Thread.Sleep(Convert.ToInt32(formData.SleepBetweenCaptures));
+                    }
+                    if (formData.MatchCaptures == "All" && noOfValidCaptures == Convert.ToInt32(formData.CapturePerInterval))
+                    {
+                        isAlert = true;
+                    }
+                    if (isAlert)
+                    {
+                        timer.Dispose();
+                        UpdateEnabledDisabled(formData.Id, false);
+                        dataGridView1.Invoke(new Action(() =>
+                        {
+                            dataGridView1.DataSource = ReadExistingFormDataFromJson();
+                        }));
+                        LaunchNotification(formData);
+                        MessageBox.Show("Time to alert now, condition met in `Check pixel color present`:`" + formData.WaitFor + "`," +
+                            "Captures Per Interval: `" + formData.CapturePerInterval + "`, Matching: `" + formData.MatchCaptures + "`", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
+                };
+                new Thread(() =>
+                {
+                    Thread.Sleep((5 + (int)Math.Round(enabledCount * 0.5)) * 1000);
+                    timer = new System.Threading.Timer(callback, null, TimeSpan.Zero, TimeSpan.FromSeconds(Convert.ToInt32(formData.RepeatTime)));
+                }).Start();
+            }
+            else if (formData.ComparisonOption == "Check same color background")
+            {
+                bool isFirstRun = true;
+                callback = state =>
+                {
+                    if (isFirstRun == true)
+                    {
+                        isFirstRun = false;
+                        int firstCaptureAnimationTime = (int)Math.Round(Convert.ToDouble(formData.RepeatTime) / 2);
+                        firstCaptureAnimationTime = (firstCaptureAnimationTime > 10 ? 10 : firstCaptureAnimationTime) * 1000;
+                        getImageFromCoordinatesOfFormData(formData, firstCaptureAnimationTime);
+                        return;
+                    }
+                    bool isAlert = false;
+                    int noOfValidCaptures = 0;
+                    for (int i = 0; i < Convert.ToInt32(formData.CapturePerInterval); i++)
+                    {
+                        int timeout = Convert.ToInt32(formData.SleepBetweenCaptures) > 200 ? (Convert.ToInt32(formData.SleepBetweenCaptures) / 2 > 2000 ? Convert.ToInt32(formData.SleepBetweenCaptures) - 2000 : Convert.ToInt32(formData.SleepBetweenCaptures) / 2) : 100;
+                        Image newImage = getImageFromCoordinatesOfFormData(formData, timeout);
+
+                        Bitmap bitmap = new Bitmap(newImage);
+                        Color referenceColor = bitmap.GetPixel(0, 0);
+                        bool isSameColorBackground = true;
+                        for (int y = 0; y < bitmap.Height; y++)
+                        {
+                            for (int x = 0; x < bitmap.Width; x++)
+                            {
+                                Color pixelColor = bitmap.GetPixel(x, y);
+                                if (pixelColor != referenceColor)
+                                {
+                                    isSameColorBackground = false;
+                                }
+                            }
+                        }
+                        if ((formData.WaitFor == "Present" && isSameColorBackground) || (formData.WaitFor == "Not Present" && !isSameColorBackground))
+                        {
+                            if (formData.MatchCaptures == "Any")
+                            {
+                                isAlert = true;
+                                break;
+                            }
+                            noOfValidCaptures++;
+                        }
+                        Thread.Sleep(Convert.ToInt32(formData.SleepBetweenCaptures));
+                    }
+                    if (formData.MatchCaptures == "All" && noOfValidCaptures == Convert.ToInt32(formData.CapturePerInterval))
+                    {
+                        isAlert = true;
+                    }
+                    if (isAlert)
+                    {
+                        timer.Dispose();
+                        UpdateEnabledDisabled(formData.Id, false);
+                        dataGridView1.Invoke(new Action(() =>
+                        {
+                            dataGridView1.DataSource = ReadExistingFormDataFromJson();
+                        }));
+                        LaunchNotification(formData);
+                        MessageBox.Show("Time to alert now, condition met in `Check same color background`:`" + formData.WaitFor + "`," +
+                            "Captures Per Interval: `" + formData.CapturePerInterval + "`, Matching: `" + formData.MatchCaptures + "`", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
+                };
+                new Thread(() =>
+                {
+                    Thread.Sleep((5 + (int)Math.Round(enabledCount * 0.5)) * 1000);
+                    timer = new System.Threading.Timer(callback, null, TimeSpan.Zero, TimeSpan.FromSeconds(Convert.ToInt32(formData.RepeatTime)));
+                }).Start();
             }
         }
 
