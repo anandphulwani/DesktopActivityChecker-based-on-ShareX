@@ -217,7 +217,7 @@ namespace DesktopActivityChecker
             this.labelColorMatches.Location = new System.Drawing.Point(55, 368);
             this.labelColorMatches.Name = "labelColorMatches";
             this.labelColorMatches.Size = new System.Drawing.Size(78, 13);
-            this.labelColorMatches.TabIndex = 67;
+            this.labelColorMatches.TabIndex = 0;
             this.labelColorMatches.Text = "Color Matches:";
             // 
             // entryScaleFactor
@@ -235,7 +235,7 @@ namespace DesktopActivityChecker
             this.labelScaleFactor.Location = new System.Drawing.Point(254, 337);
             this.labelScaleFactor.Name = "labelScaleFactor";
             this.labelScaleFactor.Size = new System.Drawing.Size(70, 13);
-            this.labelScaleFactor.TabIndex = 65;
+            this.labelScaleFactor.TabIndex = 0;
             this.labelScaleFactor.Text = "Scale Factor:";
             // 
             // entryOCRRegexGroup
@@ -252,7 +252,7 @@ namespace DesktopActivityChecker
             this.labelOCRRegexGroup.Location = new System.Drawing.Point(41, 337);
             this.labelOCRRegexGroup.Name = "labelOCRRegexGroup";
             this.labelOCRRegexGroup.Size = new System.Drawing.Size(99, 13);
-            this.labelOCRRegexGroup.TabIndex = 63;
+            this.labelOCRRegexGroup.TabIndex = 0;
             this.labelOCRRegexGroup.Text = "OCR Regex Group:";
             // 
             // entryOCRRegex
@@ -268,7 +268,7 @@ namespace DesktopActivityChecker
             this.labelOCRRegex.Location = new System.Drawing.Point(40, 307);
             this.labelOCRRegex.Name = "labelOCRRegex";
             this.labelOCRRegex.Size = new System.Drawing.Size(67, 13);
-            this.labelOCRRegex.TabIndex = 61;
+            this.labelOCRRegex.TabIndex = 0;
             this.labelOCRRegex.Text = "OCR Regex:";
             // 
             // comboBoxMatchCaptures
@@ -289,7 +289,7 @@ namespace DesktopActivityChecker
             this.labelMatchCaptures.Location = new System.Drawing.Point(55, 434);
             this.labelMatchCaptures.Name = "labelMatchCaptures";
             this.labelMatchCaptures.Size = new System.Drawing.Size(85, 13);
-            this.labelMatchCaptures.TabIndex = 59;
+            this.labelMatchCaptures.TabIndex = 0;
             this.labelMatchCaptures.Text = "Match Captures:";
             // 
             // entrySleepBetweenCaptures
@@ -306,7 +306,7 @@ namespace DesktopActivityChecker
             this.labelSleepBetweenCaptures.Location = new System.Drawing.Point(4, 396);
             this.labelSleepBetweenCaptures.Name = "labelSleepBetweenCaptures";
             this.labelSleepBetweenCaptures.Size = new System.Drawing.Size(144, 31);
-            this.labelSleepBetweenCaptures.TabIndex = 57;
+            this.labelSleepBetweenCaptures.TabIndex = 0;
             this.labelSleepBetweenCaptures.Text = "Sleep between Captures in Single Interval (milliseconds):";
             // 
             // entryCapturePerInterval
@@ -324,7 +324,7 @@ namespace DesktopActivityChecker
             this.labelCapturePerInterval.Location = new System.Drawing.Point(220, 404);
             this.labelCapturePerInterval.Name = "labelCapturePerInterval";
             this.labelCapturePerInterval.Size = new System.Drawing.Size(104, 13);
-            this.labelCapturePerInterval.TabIndex = 53;
+            this.labelCapturePerInterval.TabIndex = 0;
             this.labelCapturePerInterval.Text = "Capture Per Interval:";
             // 
             // comboBoxWaitFor
@@ -342,7 +342,7 @@ namespace DesktopActivityChecker
             this.labelWaitFor.Location = new System.Drawing.Point(90, 240);
             this.labelWaitFor.Name = "labelWaitFor";
             this.labelWaitFor.Size = new System.Drawing.Size(50, 13);
-            this.labelWaitFor.TabIndex = 51;
+            this.labelWaitFor.TabIndex = 0;
             this.labelWaitFor.Text = "Wait For:";
             // 
             // buttonReset
@@ -372,7 +372,7 @@ namespace DesktopActivityChecker
             this.labelEnabled.Location = new System.Drawing.Point(91, 525);
             this.labelEnabled.Name = "labelEnabled";
             this.labelEnabled.Size = new System.Drawing.Size(49, 13);
-            this.labelEnabled.TabIndex = 48;
+            this.labelEnabled.TabIndex = 0;
             this.labelEnabled.Text = "Enabled:";
             // 
             // entryPostMessage
@@ -388,7 +388,7 @@ namespace DesktopActivityChecker
             this.labelPostMessage.Location = new System.Drawing.Point(55, 497);
             this.labelPostMessage.Name = "labelPostMessage";
             this.labelPostMessage.Size = new System.Drawing.Size(85, 13);
-            this.labelPostMessage.TabIndex = 46;
+            this.labelPostMessage.TabIndex = 0;
             this.labelPostMessage.Text = "POST Message:";
             // 
             // entryComparisonValue
@@ -403,7 +403,7 @@ namespace DesktopActivityChecker
             this.labelComparisonValue.Location = new System.Drawing.Point(12, 251);
             this.labelComparisonValue.Name = "labelComparisonValue";
             this.labelComparisonValue.Size = new System.Drawing.Size(128, 62);
-            this.labelComparisonValue.TabIndex = 44;
+            this.labelComparisonValue.TabIndex = 0;
             this.labelComparisonValue.Text = "Comparison Value:";
             this.labelComparisonValue.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
@@ -422,7 +422,7 @@ namespace DesktopActivityChecker
             this.labelId.Location = new System.Drawing.Point(121, 44);
             this.labelId.Name = "labelId";
             this.labelId.Size = new System.Drawing.Size(19, 13);
-            this.labelId.TabIndex = 42;
+            this.labelId.TabIndex = 0;
             this.labelId.Text = "Id:";
             // 
             // regionPicker
@@ -458,7 +458,7 @@ namespace DesktopActivityChecker
             this.labelPostRequestUrl.Location = new System.Drawing.Point(33, 466);
             this.labelPostRequestUrl.Name = "labelPostRequestUrl";
             this.labelPostRequestUrl.Size = new System.Drawing.Size(107, 13);
-            this.labelPostRequestUrl.TabIndex = 38;
+            this.labelPostRequestUrl.TabIndex = 0;
             this.labelPostRequestUrl.Text = "POST Request URL:";
             // 
             // comboBoxComparisonOption
@@ -483,7 +483,7 @@ namespace DesktopActivityChecker
             this.labelComparisonOption.Location = new System.Drawing.Point(41, 206);
             this.labelComparisonOption.Name = "labelComparisonOption";
             this.labelComparisonOption.Size = new System.Drawing.Size(99, 13);
-            this.labelComparisonOption.TabIndex = 36;
+            this.labelComparisonOption.TabIndex = 0;
             this.labelComparisonOption.Text = "Comparison Option:";
             // 
             // entryRepeatTime
@@ -500,7 +500,7 @@ namespace DesktopActivityChecker
             this.labelRepeatTime.Location = new System.Drawing.Point(9, 170);
             this.labelRepeatTime.Name = "labelRepeatTime";
             this.labelRepeatTime.Size = new System.Drawing.Size(131, 13);
-            this.labelRepeatTime.TabIndex = 34;
+            this.labelRepeatTime.TabIndex = 0;
             this.labelRepeatTime.Text = "Repeat Time (in seconds):";
             // 
             // entryHeight
@@ -534,7 +534,7 @@ namespace DesktopActivityChecker
             this.labelWidth.Location = new System.Drawing.Point(102, 137);
             this.labelWidth.Name = "labelWidth";
             this.labelWidth.Size = new System.Drawing.Size(38, 13);
-            this.labelWidth.TabIndex = 30;
+            this.labelWidth.TabIndex = 0;
             this.labelWidth.Text = "Width:";
             // 
             // entryY
@@ -551,7 +551,7 @@ namespace DesktopActivityChecker
             this.labelY.Location = new System.Drawing.Point(272, 106);
             this.labelY.Name = "labelY";
             this.labelY.Size = new System.Drawing.Size(17, 13);
-            this.labelY.TabIndex = 28;
+            this.labelY.TabIndex = 0;
             this.labelY.Text = "Y:";
             // 
             // entryX
@@ -568,7 +568,7 @@ namespace DesktopActivityChecker
             this.labelX.Location = new System.Drawing.Point(123, 106);
             this.labelX.Name = "labelX";
             this.labelX.Size = new System.Drawing.Size(17, 13);
-            this.labelX.TabIndex = 26;
+            this.labelX.TabIndex = 0;
             this.labelX.Text = "X:";
             // 
             // entryName
@@ -584,7 +584,7 @@ namespace DesktopActivityChecker
             this.labelName.Location = new System.Drawing.Point(102, 74);
             this.labelName.Name = "labelName";
             this.labelName.Size = new System.Drawing.Size(38, 13);
-            this.labelName.TabIndex = 24;
+            this.labelName.TabIndex = 0;
             this.labelName.Text = "Name:";
             // 
             // labelHeading
@@ -594,7 +594,7 @@ namespace DesktopActivityChecker
             this.labelHeading.Location = new System.Drawing.Point(185, 11);
             this.labelHeading.Name = "labelHeading";
             this.labelHeading.Size = new System.Drawing.Size(147, 20);
-            this.labelHeading.TabIndex = 23;
+            this.labelHeading.TabIndex = 0;
             this.labelHeading.Text = "Create/Edit Entry";
             // 
             // tabEntriesTable
