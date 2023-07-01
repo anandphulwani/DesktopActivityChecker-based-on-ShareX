@@ -1273,6 +1273,7 @@ namespace DesktopActivityChecker
 
             notifyIcon.Visible = true;
             notifyIcon.MouseClick += NotifyIcon_MouseClick;
+            notifyIcon.MouseDoubleClick += NotifyIcon_MouseClick;
 
             mainform = new MainForm();
             Application.Run(mainform);
