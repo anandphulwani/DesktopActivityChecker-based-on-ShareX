@@ -816,7 +816,9 @@ namespace DesktopActivityChecker
                 {
                     System.Threading.Timer timer = null;
                     ExecuteEntry(formData, timer, enabledCount);
+                    #pragma warning disable IDE0059 // Unnecessary assignment of a value
                     enabledCount++;
+                    #pragma warning restore IDE0059 // Unnecessary assignment of a value
                 }
             }
         }
