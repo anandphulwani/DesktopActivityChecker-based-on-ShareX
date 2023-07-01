@@ -38,13 +38,16 @@ namespace DesktopActivityChecker
             }
 
             Icon = titleBarIcon;
-            FormClosing += MainForm_FormClosing;
 
             InitializeComponent();
+
             comboBoxComparisonOption.SelectedIndex = 0;
             comboBoxWaitFor.SelectedIndex = 0;
             comboBoxMatchCaptures.SelectedIndex = 0;
             comboBoxColorMatches.SelectedIndex = -1;
+
+            FormClosing += MainForm_FormClosing;
+            Load += MainForm_Load;
 
             using (var stream = new System.IO.MemoryStream(System.Text.Encoding.UTF8.GetBytes(regionSvgContent)))
             {
@@ -61,7 +64,7 @@ namespace DesktopActivityChecker
         }
 
 
-        #region MainForm FormClosing
+        #region MainForm FormClosing, MainForm_Load
         private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
         {
             if (e.CloseReason == CloseReason.UserClosing)
@@ -70,6 +73,14 @@ namespace DesktopActivityChecker
                 WindowState = FormWindowState.Minimized; // Minimize the form to the tray
                 Hide();
             }
+        }
+
+        private void MainForm_Load(object sender, EventArgs e)
+        {
+            this.BeginInvoke(new Action(() =>
+            {
+                entryName.Focus();
+            }));
         }
         #endregion
 
