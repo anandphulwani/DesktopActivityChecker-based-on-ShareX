@@ -858,6 +858,7 @@ namespace DesktopActivityChecker
                             {
                                 timer.Dispose();
                                 // Alert via ntfy.sh here
+                                LaunchNotification(formData);
                                 MessageBox.Show("Time to alert now, condition met in `"+ formData.ComparisonOption + "`:`" + formData.WaitFor + "`," +
                                     "Captures Per Interval: `" + formData.CapturePerInterval + "`, Matching: `" + formData.MatchCaptures + "`", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
                             }
@@ -928,6 +929,7 @@ namespace DesktopActivityChecker
                             {
                                 timer.Dispose();
                                 // Alert via ntfy.sh here
+                                LaunchNotification(formData);
                                 MessageBox.Show("Time to alert now, condition met in `OCR compare`:`" + formData.WaitFor + "`," +
                                     "Captures Per Interval: `" + formData.CapturePerInterval + "`, Matching: `" + formData.MatchCaptures + "`", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
                             }
@@ -1030,6 +1032,7 @@ namespace DesktopActivityChecker
                             {
                                 timer.Dispose();
                                 // Alert via ntfy.sh here
+                                LaunchNotification(formData);
                                 MessageBox.Show("Time to alert now, condition met in `Check pixel color present`:`" + formData.WaitFor + "`," +
                                     "Captures Per Interval: `" + formData.CapturePerInterval + "`, Matching: `" + formData.MatchCaptures + "`", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
                             }
@@ -1093,6 +1096,7 @@ namespace DesktopActivityChecker
                             {
                                 timer.Dispose();
                                 // Alert via ntfy.sh here
+                                LaunchNotification(formData);
                                 MessageBox.Show("Time to alert now, condition met in `Check same color background`:`" + formData.WaitFor + "`," +
                                     "Captures Per Interval: `" + formData.CapturePerInterval + "`, Matching: `" + formData.MatchCaptures + "`", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
                             }
