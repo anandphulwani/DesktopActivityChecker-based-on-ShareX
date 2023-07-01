@@ -209,7 +209,7 @@ namespace DesktopActivityChecker
             this.comboBoxColorMatches.Location = new System.Drawing.Point(144, 365);
             this.comboBoxColorMatches.Name = "comboBoxColorMatches";
             this.comboBoxColorMatches.Size = new System.Drawing.Size(249, 21);
-            this.comboBoxColorMatches.TabIndex = 68;
+            this.comboBoxColorMatches.TabIndex = 14;
             // 
             // labelColorMatches
             // 
@@ -225,7 +225,7 @@ namespace DesktopActivityChecker
             this.entryScaleFactor.Location = new System.Drawing.Point(326, 334);
             this.entryScaleFactor.Name = "entryScaleFactor";
             this.entryScaleFactor.Size = new System.Drawing.Size(69, 20);
-            this.entryScaleFactor.TabIndex = 66;
+            this.entryScaleFactor.TabIndex = 13;
             this.entryScaleFactor.Text = "4";
             this.entryScaleFactor.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
@@ -243,7 +243,7 @@ namespace DesktopActivityChecker
             this.entryOCRRegexGroup.Location = new System.Drawing.Point(146, 334);
             this.entryOCRRegexGroup.Name = "entryOCRRegexGroup";
             this.entryOCRRegexGroup.Size = new System.Drawing.Size(69, 20);
-            this.entryOCRRegexGroup.TabIndex = 64;
+            this.entryOCRRegexGroup.TabIndex = 12;
             this.entryOCRRegexGroup.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
             // labelOCRRegexGroup
@@ -260,7 +260,7 @@ namespace DesktopActivityChecker
             this.entryOCRRegex.Location = new System.Drawing.Point(146, 304);
             this.entryOCRRegex.Name = "entryOCRRegex";
             this.entryOCRRegex.Size = new System.Drawing.Size(249, 20);
-            this.entryOCRRegex.TabIndex = 62;
+            this.entryOCRRegex.TabIndex = 11;
             // 
             // labelOCRRegex
             // 
@@ -281,7 +281,7 @@ namespace DesktopActivityChecker
             this.comboBoxMatchCaptures.Location = new System.Drawing.Point(144, 431);
             this.comboBoxMatchCaptures.Name = "comboBoxMatchCaptures";
             this.comboBoxMatchCaptures.Size = new System.Drawing.Size(249, 21);
-            this.comboBoxMatchCaptures.TabIndex = 60;
+            this.comboBoxMatchCaptures.TabIndex = 17;
             // 
             // labelMatchCaptures
             // 
@@ -297,7 +297,7 @@ namespace DesktopActivityChecker
             this.entrySleepBetweenCaptures.Location = new System.Drawing.Point(146, 400);
             this.entrySleepBetweenCaptures.Name = "entrySleepBetweenCaptures";
             this.entrySleepBetweenCaptures.Size = new System.Drawing.Size(69, 20);
-            this.entrySleepBetweenCaptures.TabIndex = 58;
+            this.entrySleepBetweenCaptures.TabIndex = 15;
             this.entrySleepBetweenCaptures.Text = "250";
             this.entrySleepBetweenCaptures.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
@@ -314,7 +314,7 @@ namespace DesktopActivityChecker
             this.entryCapturePerInterval.Location = new System.Drawing.Point(326, 400);
             this.entryCapturePerInterval.Name = "entryCapturePerInterval";
             this.entryCapturePerInterval.Size = new System.Drawing.Size(69, 20);
-            this.entryCapturePerInterval.TabIndex = 54;
+            this.entryCapturePerInterval.TabIndex = 16;
             this.entryCapturePerInterval.Text = "10";
             this.entryCapturePerInterval.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
@@ -334,7 +334,7 @@ namespace DesktopActivityChecker
             this.comboBoxWaitFor.Location = new System.Drawing.Point(146, 237);
             this.comboBoxWaitFor.Name = "comboBoxWaitFor";
             this.comboBoxWaitFor.Size = new System.Drawing.Size(249, 21);
-            this.comboBoxWaitFor.TabIndex = 52;
+            this.comboBoxWaitFor.TabIndex = 9;
             // 
             // labelWaitFor
             // 
@@ -350,7 +350,7 @@ namespace DesktopActivityChecker
             this.buttonReset.Location = new System.Drawing.Point(259, 552);
             this.buttonReset.Name = "buttonReset";
             this.buttonReset.Size = new System.Drawing.Size(75, 23);
-            this.buttonReset.TabIndex = 50;
+            this.buttonReset.TabIndex = 22;
             this.buttonReset.Text = "Reset";
             this.buttonReset.UseVisualStyleBackColor = true;
             this.buttonReset.Click += new System.EventHandler(this.buttonReset_Click);
@@ -363,7 +363,7 @@ namespace DesktopActivityChecker
             this.checkBoxEnabled.Location = new System.Drawing.Point(146, 526);
             this.checkBoxEnabled.Name = "checkBoxEnabled";
             this.checkBoxEnabled.Size = new System.Drawing.Size(15, 14);
-            this.checkBoxEnabled.TabIndex = 49;
+            this.checkBoxEnabled.TabIndex = 20;
             this.checkBoxEnabled.UseVisualStyleBackColor = true;
             // 
             // labelEnabled
@@ -380,7 +380,7 @@ namespace DesktopActivityChecker
             this.entryPostMessage.Location = new System.Drawing.Point(146, 494);
             this.entryPostMessage.Name = "entryPostMessage";
             this.entryPostMessage.Size = new System.Drawing.Size(249, 20);
-            this.entryPostMessage.TabIndex = 47;
+            this.entryPostMessage.TabIndex = 19;
             // 
             // labelPostMessage
             // 
@@ -396,7 +396,7 @@ namespace DesktopActivityChecker
             this.entryComparisonValue.Location = new System.Drawing.Point(146, 272);
             this.entryComparisonValue.Name = "entryComparisonValue";
             this.entryComparisonValue.Size = new System.Drawing.Size(249, 20);
-            this.entryComparisonValue.TabIndex = 45;
+            this.entryComparisonValue.TabIndex = 10;
             // 
             // labelComparisonValue
             // 
@@ -414,7 +414,7 @@ namespace DesktopActivityChecker
             this.entryId.Name = "entryId";
             this.entryId.ReadOnly = true;
             this.entryId.Size = new System.Drawing.Size(249, 20);
-            this.entryId.TabIndex = 43;
+            this.entryId.TabIndex = 0;
             // 
             // labelId
             // 
@@ -430,7 +430,7 @@ namespace DesktopActivityChecker
             this.regionPicker.Location = new System.Drawing.Point(405, 102);
             this.regionPicker.Name = "regionPicker";
             this.regionPicker.Size = new System.Drawing.Size(38, 23);
-            this.regionPicker.TabIndex = 41;
+            this.regionPicker.TabIndex = 2;
             this.regionPicker.UseVisualStyleBackColor = true;
             this.regionPicker.Click += new System.EventHandler(this.regionPicker_Click);
             // 
@@ -439,7 +439,7 @@ namespace DesktopActivityChecker
             this.buttonCreate.Location = new System.Drawing.Point(169, 552);
             this.buttonCreate.Name = "buttonCreate";
             this.buttonCreate.Size = new System.Drawing.Size(75, 23);
-            this.buttonCreate.TabIndex = 40;
+            this.buttonCreate.TabIndex = 21;
             this.buttonCreate.Text = "Create";
             this.buttonCreate.UseVisualStyleBackColor = true;
             this.buttonCreate.Click += new System.EventHandler(this.buttonCreate_Click);
@@ -449,7 +449,7 @@ namespace DesktopActivityChecker
             this.entryPostRequestUrl.Location = new System.Drawing.Point(146, 463);
             this.entryPostRequestUrl.Name = "entryPostRequestUrl";
             this.entryPostRequestUrl.Size = new System.Drawing.Size(249, 20);
-            this.entryPostRequestUrl.TabIndex = 39;
+            this.entryPostRequestUrl.TabIndex = 18;
             this.entryPostRequestUrl.Text = "https://www.ntfy.sh/";
             // 
             // labelPostRequestUrl
@@ -474,7 +474,7 @@ namespace DesktopActivityChecker
             this.comboBoxComparisonOption.Location = new System.Drawing.Point(146, 203);
             this.comboBoxComparisonOption.Name = "comboBoxComparisonOption";
             this.comboBoxComparisonOption.Size = new System.Drawing.Size(249, 21);
-            this.comboBoxComparisonOption.TabIndex = 37;
+            this.comboBoxComparisonOption.TabIndex = 8;
             this.comboBoxComparisonOption.SelectedIndexChanged += new System.EventHandler(this.comboBoxComparisonOption_SelectedIndexChanged);
             // 
             // labelComparisonOption
@@ -491,7 +491,7 @@ namespace DesktopActivityChecker
             this.entryRepeatTime.Location = new System.Drawing.Point(146, 167);
             this.entryRepeatTime.Name = "entryRepeatTime";
             this.entryRepeatTime.Size = new System.Drawing.Size(100, 20);
-            this.entryRepeatTime.TabIndex = 35;
+            this.entryRepeatTime.TabIndex = 7;
             this.entryRepeatTime.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
             // labelRepeatTime
@@ -508,7 +508,7 @@ namespace DesktopActivityChecker
             this.entryHeight.Location = new System.Drawing.Point(295, 134);
             this.entryHeight.Name = "entryHeight";
             this.entryHeight.Size = new System.Drawing.Size(100, 20);
-            this.entryHeight.TabIndex = 33;
+            this.entryHeight.TabIndex = 6;
             this.entryHeight.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
             // labelHeight
@@ -525,7 +525,7 @@ namespace DesktopActivityChecker
             this.entryWidth.Location = new System.Drawing.Point(146, 134);
             this.entryWidth.Name = "entryWidth";
             this.entryWidth.Size = new System.Drawing.Size(100, 20);
-            this.entryWidth.TabIndex = 31;
+            this.entryWidth.TabIndex = 5;
             this.entryWidth.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
             // labelWidth
@@ -542,7 +542,7 @@ namespace DesktopActivityChecker
             this.entryY.Location = new System.Drawing.Point(295, 103);
             this.entryY.Name = "entryY";
             this.entryY.Size = new System.Drawing.Size(100, 20);
-            this.entryY.TabIndex = 29;
+            this.entryY.TabIndex = 4;
             this.entryY.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
             // labelY
@@ -559,7 +559,7 @@ namespace DesktopActivityChecker
             this.entryX.Location = new System.Drawing.Point(146, 103);
             this.entryX.Name = "entryX";
             this.entryX.Size = new System.Drawing.Size(100, 20);
-            this.entryX.TabIndex = 27;
+            this.entryX.TabIndex = 3;
             this.entryX.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
             // labelX
@@ -576,7 +576,7 @@ namespace DesktopActivityChecker
             this.entryName.Location = new System.Drawing.Point(146, 71);
             this.entryName.Name = "entryName";
             this.entryName.Size = new System.Drawing.Size(249, 20);
-            this.entryName.TabIndex = 25;
+            this.entryName.TabIndex = 1;
             // 
             // labelName
             // 
