@@ -728,7 +728,6 @@ namespace DesktopActivityChecker
             }
         }
 
-
         private void dataGridView1_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Space)
@@ -754,7 +753,7 @@ namespace DesktopActivityChecker
         {
                 int id = Convert.ToInt32(dataGridView1.Rows[rowIndex].Cells["Id"].Value);
                 string name = Convert.ToString(dataGridView1.Rows[rowIndex].Cells["NameOfEntry"].Value);
-                if (dataGridView1.Columns[columnIndex].Name == "Enabled")
+                if (dataGridView1.Columns[columnIndex].Name == "isEnabled")
                 {
                     UpdateEnabledDisabled(id, !Convert.ToBoolean(dataGridView1.Rows[rowIndex].Cells["Enabled"].Value));
                 }
