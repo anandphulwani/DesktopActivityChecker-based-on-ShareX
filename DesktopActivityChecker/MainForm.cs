@@ -414,6 +414,11 @@ namespace DesktopActivityChecker
                     lastPostMessage = entryPostMessage.Text;
                     ClearAllFields();
 
+                    if (formData.Enabled)
+                    {
+                        ExecuteEntry(formData, 0);
+                    }
+
                     dataGridView1.DataSource = ReadExistingFormDataFromJson();
                     buttonCreate.Text = "Create";
                     mainTabControl.SelectTab(tabEntriesTable);
