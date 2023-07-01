@@ -786,7 +786,7 @@ namespace DesktopActivityChecker
                 }
                 else if (dataGridView1.Columns[columnIndex].Name == "Delete")
                 {
-                    DialogResult result = MessageBox.Show($"Do you want to delete record with {name} ({id})?", "Confirmation", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                    DialogResult result = MessageBox.Show($"Do you want to delete record with {name} ({id})?", "Confirmation", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2);
                     if (result == DialogResult.Yes)
                     {
                         DeleteEntry(id);
