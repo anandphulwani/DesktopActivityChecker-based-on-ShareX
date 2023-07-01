@@ -404,6 +404,7 @@ namespace DesktopActivityChecker
                     dataGridView1.DataSource = ReadExistingFormDataFromJson();
                     buttonCreate.Text = "Create";
                     mainTabControl.SelectTab(tabEntriesTable);
+                    dataGridView1.Focus();
                 }
                 catch (Exception ex)
                 {
@@ -489,6 +490,7 @@ namespace DesktopActivityChecker
 
                 buttonCreate.Text = "Update";
                 mainTabControl.SelectTab(tabCreateEditEntry);
+                entryName.Focus();
             }
         }
 
@@ -535,6 +537,7 @@ namespace DesktopActivityChecker
                     dataGridView1.DataSource = ReadExistingFormDataFromJson();
                     buttonCreate.Text = "Create";
                     mainTabControl.SelectTab(tabEntriesTable);
+                    dataGridView1.Focus();
                 }
                 catch (Exception ex)
                 {
