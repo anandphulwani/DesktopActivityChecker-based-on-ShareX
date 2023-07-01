@@ -68,9 +68,9 @@ namespace DesktopActivityChecker
             {
                 e.Cancel = true; // Cancel the form closing event
                 WindowState = FormWindowState.Minimized; // Minimize the form to the tray
+                Hide();
             }
         }
-
         #endregion
 
         #region Validations definitions and execution
