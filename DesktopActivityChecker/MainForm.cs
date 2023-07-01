@@ -857,7 +857,6 @@ namespace DesktopActivityChecker
                             if (isAlert)
                             {
                                 timer.Dispose();
-                                // Alert via ntfy.sh here
                                 UpdateEnabledDisabled(formData.Id, false);
                                 dataGridView1.Invoke(new Action(() =>
                                 {
@@ -933,7 +932,6 @@ namespace DesktopActivityChecker
                             if (isAlert)
                             {
                                 timer.Dispose();
-                                // Alert via ntfy.sh here
                                 UpdateEnabledDisabled(formData.Id, false);
                                 dataGridView1.Invoke(new Action(() =>
                                 {
@@ -1041,7 +1039,6 @@ namespace DesktopActivityChecker
                             if (isAlert)
                             {
                                 timer.Dispose();
-                                // Alert via ntfy.sh here
                                 UpdateEnabledDisabled(formData.Id, false);
                                 dataGridView1.Invoke(new Action(() =>
                                 {
@@ -1110,7 +1107,6 @@ namespace DesktopActivityChecker
                             if (isAlert)
                             {
                                 timer.Dispose();
-                                // Alert via ntfy.sh here
                                 UpdateEnabledDisabled(formData.Id, false);
                                 dataGridView1.Invoke(new Action(() =>
                                 {
