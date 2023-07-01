@@ -29,6 +29,14 @@ namespace DesktopActivityChecker
         {
             timersDict.Remove(key);
         }
-        // Other methods as needed...
+
+        public void ReplaceKey(int oldKey, int newKey)
+        {
+            if (timersDict.TryGetValue(oldKey, out Timer timer))
+            {
+                timersDict.Remove(oldKey);
+                timersDict[newKey] = timer;
+            }
+        }
     }
 }
