@@ -1295,6 +1295,8 @@ namespace DesktopActivityChecker
     }
     static class Program
     {
+        static Mutex mutex = new Mutex(true, "{DesktopActivityChecker-based-on-ShareX}");
+
         static string activityBase64ContentBlack = "iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAACXBIWXMAAAsTAAALEwEAmpwYAAABOklEQVR4nN2UP0vEQBDFf4fFFVYWWkpE1O5SKgfH9SIIihfzabS1Ow4r/QQWln4AS0HQTgQLW1sLG/EPC29gWDZgwgrig2Eym2FeZuZt4D+jBCby2TEHHAK1fD83wYKK17IiN0EREQxzEwwign2gl5NgFBHUwFIibwa8yrfCToKgjHKWgQ/gC/gEVrsoqHa2HeUdq7jZSRcF7eouWDzv8u4jgqcuChoBYxevJcbjbautggYqavG4YTxm520VVGgsFk+0oztX9MY9v6TkHNRRJZZaax9owXa26cYT/IakGnfzbh0dNBSv9LX2EXZ+6oqERQdcNozszWYed1Dp3LDo3l24AmEXAevAc6KDM36IHrAngit3uVbIiKEIrkUQFp0VhQhuRXCUm6CvX8iD1BMuW3aUwCMw/Y3ifxPfr1xna6wnLu4AAAAASUVORK5CYII=";
         static NotifyIcon notifyIcon;
         static MainForm mainform;
@@ -1324,6 +1326,12 @@ namespace DesktopActivityChecker
         [STAThread]
         static void Main()
         {
+            if (!mutex.WaitOne(TimeSpan.Zero, true))
+            {
+                Console.WriteLine("Another instance is already running. Exiting...");
+                MessageBox.Show("Another instance is already running. Exiting...", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
             string appDataPath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
             string directoryPath = Path.Combine(appDataPath, "DesktopActivityChecker");
             string filePath = Path.Combine(directoryPath, "entries.json");
@@ -1375,6 +1383,7 @@ namespace DesktopActivityChecker
         {
             // Dispose the NotifyIcon component
             notifyIcon.Dispose();
+            mutex.ReleaseMutex();
         }
     }
 }
