@@ -248,6 +248,12 @@ namespace DesktopActivityChecker
 
         private static string GetDataStorePath()
         {
+            string appDataPath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
+            string directoryPath = Path.Combine(appDataPath, "DesktopActivityChecker");
+            string filePath = Path.Combine(directoryPath, "entries.json");
+            return filePath;
+
+            /*
             string projectDirectory = AppDomain.CurrentDomain.BaseDirectory;
             string directoryName = Directory.GetParent(projectDirectory).Name;
             if (directoryName == "Debug")
@@ -255,6 +261,7 @@ namespace DesktopActivityChecker
                 projectDirectory = Directory.GetParent(Directory.GetParent(Directory.GetParent(projectDirectory).FullName).FullName).FullName;
             }
             return Path.Combine(projectDirectory, "./datastore/entries.json");
+            */
         }
 
         #region GetDataFromFields() and ClearAllFields()
@@ -1317,6 +1324,21 @@ namespace DesktopActivityChecker
         [STAThread]
         static void Main()
         {
+            string appDataPath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
+            string directoryPath = Path.Combine(appDataPath, "DesktopActivityChecker");
+            string filePath = Path.Combine(directoryPath, "entries.json");
+            if (!Directory.Exists(directoryPath))
+            {
+                Directory.CreateDirectory(directoryPath);
+            }
+            if (!File.Exists(filePath))
+            {
+                // File.Create(filePath).Dispose();
+                string base64String = "WwogIHsKICAgICJFbmFibGVkIjogdHJ1ZSwKICAgICJJZCI6IDEsCiAgICAiTmFtZSI6ICJJbml0aWFsQ2FwdHVyZUFsbCIsCiAgICAiWCI6ICIxMDUwIiwKICAgICJZIjogIjMiLAogICAgIldpZHRoIjogIjE0MyIsCiAgICAiSGVpZ2h0IjogIjUzIiwKICAgICJSZXBlYXRUaW1lIjogIjEyMCIsCiAgICAiQ29tcGFyaXNvbk9wdGlvbiI6ICJNYXRjaCBmcm9tIEluaXRpYWwgQ2FwdHVyZSIsCiAgICAiV2FpdEZvciI6ICJFcXVhbGl0eSIsCiAgICAiQ29tcGFyaXNvblZhbHVlIjogIiIsCiAgICAiT0NSUmVnZXgiOiAiIiwKICAgICJPQ1JSZWdleEdyb3VwIjogIiIsCiAgICAiU2NhbGVGYWN0b3IiOiAiIiwKICAgICJDb2xvck1hdGNoZXMiOiAiIiwKICAgICJTbGVlcEJldHdlZW5DYXB0dXJlcyI6ICIyNTAiLAogICAgIkNhcHR1cmVQZXJJbnRlcnZhbCI6ICIxMCIsCiAgICAiTWF0Y2hDYXB0dXJlcyI6ICJBbGwiLAogICAgIlBvc3RSZXF1ZXN0VXJsIjogImh0dHBzOi8vd3d3Lm50Znkuc2gvSGVsbG9Xb3JsZDFzdCIsCiAgICAiUG9zdE1lc3NhZ2UiOiAiIgogIH0sCiAgewogICAgIkVuYWJsZWQiOiB0cnVlLAogICAgIklkIjogMiwKICAgICJOYW1lIjogIkxhc3RDYXB0dXJlQWxsIiwKICAgICJYIjogIjEwNTAiLAogICAgIlkiOiAiNjAiLAogICAgIldpZHRoIjogIjE0MyIsCiAgICAiSGVpZ2h0IjogIjUzIiwKICAgICJSZXBlYXRUaW1lIjogIjEyMCIsCiAgICAiQ29tcGFyaXNvbk9wdGlvbiI6ICJNYXRjaCBmcm9tIExhc3QgQ2FwdHVyZSIsCiAgICAiV2FpdEZvciI6ICJFcXVhbGl0eSIsCiAgICAiQ29tcGFyaXNvblZhbHVlIjogIiIsCiAgICAiT0NSUmVnZXgiOiAiIiwKICAgICJPQ1JSZWdleEdyb3VwIjogIiIsCiAgICAiU2NhbGVGYWN0b3IiOiAiIiwKICAgICJDb2xvck1hdGNoZXMiOiAiIiwKICAgICJTbGVlcEJldHdlZW5DYXB0dXJlcyI6ICIyNTAiLAogICAgIkNhcHR1cmVQZXJJbnRlcnZhbCI6ICIxMCIsCiAgICAiTWF0Y2hDYXB0dXJlcyI6ICJBbGwiLAogICAgIlBvc3RSZXF1ZXN0VXJsIjogImh0dHBzOi8vd3d3Lm50Znkuc2gvSGVsbG9Xb3JsZDFzdCIsCiAgICAiUG9zdE1lc3NhZ2UiOiAiIgogIH0sCiAgewogICAgIkVuYWJsZWQiOiB0cnVlLAogICAgIklkIjogMywKICAgICJOYW1lIjogIlNhbWVDb2xvcjEiLAogICAgIlgiOiAiMTA1MCIsCiAgICAiWSI6ICIzIiwKICAgICJXaWR0aCI6ICIxNDMiLAogICAgIkhlaWdodCI6ICIyMCIsCiAgICAiUmVwZWF0VGltZSI6ICIxMjAiLAogICAgIkNvbXBhcmlzb25PcHRpb24iOiAiQ2hlY2sgc2FtZSBjb2xvciBiYWNrZ3JvdW5kIiwKICAgICJXYWl0Rm9yIjogIlByZXNlbnQiLAogICAgIkNvbXBhcmlzb25WYWx1ZSI6ICIiLAogICAgIk9DUlJlZ2V4IjogIiIsCiAgICAiT0NSUmVnZXhHcm91cCI6ICIiLAogICAgIlNjYWxlRmFjdG9yIjogIiIsCiAgICAiQ29sb3JNYXRjaGVzIjogIiIsCiAgICAiU2xlZXBCZXR3ZWVuQ2FwdHVyZXMiOiAiMjUwIiwKICAgICJDYXB0dXJlUGVySW50ZXJ2YWwiOiAiMTAiLAogICAgIk1hdGNoQ2FwdHVyZXMiOiAiQWxsIiwKICAgICJQb3N0UmVxdWVzdFVybCI6ICJodHRwczovL3d3dy5udGZ5LnNoL0hlbGxvV29ybGQxc3QiLAogICAgIlBvc3RNZXNzYWdlIjogIiIKICB9LAogIHsKICAgICJFbmFibGVkIjogdHJ1ZSwKICAgICJJZCI6IDQsCiAgICAiTmFtZSI6ICJCb3R0b21Cb3giLAogICAgIlgiOiAiMTEwNCIsCiAgICAiWSI6ICI2OTAiLAogICAgIldpZHRoIjogIjQyMCIsCiAgICAiSGVpZ2h0IjogIjk0IiwKICAgICJSZXBlYXRUaW1lIjogIjMwIiwKICAgICJDb21wYXJpc29uT3B0aW9uIjogIkNoZWNrIHNhbWUgY29sb3IgYmFja2dyb3VuZCIsCiAgICAiV2FpdEZvciI6ICJQcmVzZW50IiwKICAgICJDb21wYXJpc29uVmFsdWUiOiAiIiwKICAgICJPQ1JSZWdleCI6ICIiLAogICAgIk9DUlJlZ2V4R3JvdXAiOiAiIiwKICAgICJTY2FsZUZhY3RvciI6ICIiLAogICAgIkNvbG9yTWF0Y2hlcyI6ICIiLAogICAgIlNsZWVwQmV0d2VlbkNhcHR1cmVzIjogIjI1MCIsCiAgICAiQ2FwdHVyZVBlckludGVydmFsIjogIjEwIiwKICAgICJNYXRjaENhcHR1cmVzIjogIkFsbCIsCiAgICAiUG9zdFJlcXVlc3RVcmwiOiAiaHR0cHM6Ly93d3cubnRmeS5zaC9IZWxsb1dvcmxkMXN0IiwKICAgICJQb3N0TWVzc2FnZSI6ICIiCiAgfQpd";
+                byte[] bytes = Convert.FromBase64String(base64String);
+                File.WriteAllBytes(filePath, bytes);
+            }
+
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
 
