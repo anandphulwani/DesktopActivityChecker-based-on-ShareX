@@ -437,9 +437,14 @@ namespace DesktopActivityChecker
             FormData formDataToDelete = formData.Find(p => p.Id == id);
             if (formDataToDelete != null)
             {
+                if (formDataToDelete.Enabled)
+                {
+                    timerStore.RemoveTimer(formDataToDelete.Id);
+                }
                 formData.Remove(formDataToDelete);
                 for (int i = 0; i < formData.Count; i++)
                 {
+                    timerStore.ReplaceKey(formData[i].Id, (i + 1));
                     formData[i].Id = i + 1;
                 }
                 string jsonData = JsonConvert.SerializeObject(formData, Formatting.Indented);
