@@ -67,6 +67,18 @@ namespace DesktopActivityChecker
             newThread.Start();
         }
 
+        private void dataGridView1_SelectionChanged(object sender, EventArgs e)
+        {
+            if (dataGridView1.SelectedCells.Count > 0)
+            {
+                int lastColumnIndex = dataGridView1.Columns.Count - 1;
+
+                if (dataGridView1.SelectedCells[0].ColumnIndex == lastColumnIndex)
+                {
+                    dataGridView1.FirstDisplayedScrollingColumnIndex = lastColumnIndex;
+                }
+            }
+        }
 
         #region MainForm FormClosing, MainForm_Load
         private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
