@@ -1281,8 +1281,7 @@ namespace DesktopActivityChecker
                 // client.DefaultRequestHeaders.Add("Priority", "urgent");
                 // client.DefaultRequestHeaders.Add("Tags", "warning,skull");
                 client.DefaultRequestHeaders.Add("Tags", "bell");
-                // HttpResponseMessage response = await client.PostAsync(formData.PostRequestUrl, content);
-                HttpResponseMessage response = await client.PostAsync("https://ntfy.sh/alert", content);
+                HttpResponseMessage response = await client.PostAsync(formData.PostRequestUrl, content);
                 if (response.IsSuccessStatusCode)
                 {
                     string responseBody = await response.Content.ReadAsStringAsync();
