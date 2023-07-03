@@ -332,8 +332,15 @@ namespace DesktopActivityChecker
                 {
                     string jsonData = File.ReadAllText(filePath);
                     List<FormData> allFormData = JsonConvert.DeserializeObject<List<FormData>>(jsonData);
-                    FormData lastElement = allFormData[allFormData.Count - 1];
-                    return lastElement.Id;
+                    if (allFormData.Count > 0)
+                    {
+                        FormData lastElement = allFormData[allFormData.Count - 1];
+                        return lastElement.Id;
+                    }
+                    else
+                    {
+                        throw new Exception("JSON entries count is 0.");
+                    }
                 }
                 catch (Exception ex)
                 {
@@ -352,14 +359,23 @@ namespace DesktopActivityChecker
                 {
                     string jsonData = File.ReadAllText(filePath);
                     List<FormData> allFormData = JsonConvert.DeserializeObject<List<FormData>>(jsonData);
-                    FormData lastElement = allFormData[allFormData.Count - 1];
-                    return lastElement.PostRequestUrl;
+                    if (allFormData.Count > 0)
+                    {
+                        FormData lastElement = allFormData[allFormData.Count - 1];
+                        return lastElement.PostRequestUrl;
+                    }
+                    else
+                    {
+                        goto endOfIfBlockLastPostRequestURL;
+                        // throw new Exception("JSON entries count is 0.");
+                    }   
                 }
                 catch (Exception ex)
                 {
                     MessageBox.Show("An error occurred while reading the JSON file: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
+            endOfIfBlockLastPostRequestURL:
             return "https://www.ntfy.sh/"; // Return default if the JSON file doesn't exist or couldn't be read
         }
 
@@ -372,14 +388,23 @@ namespace DesktopActivityChecker
                 {
                     string jsonData = File.ReadAllText(filePath);
                     List<FormData> allFormData = JsonConvert.DeserializeObject<List<FormData>>(jsonData);
-                    FormData lastElement = allFormData[allFormData.Count - 1];
-                    return lastElement.PostMessage;
+                    if (allFormData.Count > 0)
+                    {
+                        FormData lastElement = allFormData[allFormData.Count - 1];
+                        return lastElement.PostMessage;
+                    }
+                    else
+                    {
+                        goto endOfIfBlockLastPostMessage;
+                        // throw new Exception("JSON entries count is 0.");
+                    }
                 }
                 catch (Exception ex)
                 {
                     MessageBox.Show("An error occurred while reading the JSON file: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
+            endOfIfBlockLastPostMessage:
             return ""; // Return default if the JSON file doesn't exist or couldn't be read
         }
 
