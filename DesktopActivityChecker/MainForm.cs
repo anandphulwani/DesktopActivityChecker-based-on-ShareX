@@ -204,6 +204,28 @@ namespace DesktopActivityChecker
                     MessageBox.Show("'Color To Compare' is empty.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return false;
                 }
+                if (entryComparisonValue.Text.StartsWith(",") || entryComparisonValue.Text.EndsWith(","))
+                {
+                    MessageBox.Show("'Color To Compare' value starts with or ends with a comma(,).", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return false;
+                }
+                string[] colorValues = entryComparisonValue.Text.Split(',');
+                foreach (string colorValue in colorValues)
+                {
+                    try
+                    {
+                        if (!colorValue.StartsWith("#") || colorValue.Length != 7)
+                        {
+                            throw new Exception();
+                        }
+                        Color color = ColorTranslator.FromHtml(colorValue);
+                    }
+                    catch
+                    {
+                        MessageBox.Show("'Color To Compare' has an invalid color value: "+ colorValue, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        return false;
+                    }
+                }
                 if (!(ValidateStringEmpty(entryOCRRegex.Text) && ValidateStringEmpty(entryOCRRegexGroup.Text) && ValidateStringEmpty(entryScaleFactor.Text)))
                 {
                     MessageBox.Show("'OCR Regex': `" + entryOCRRegex.Text + "`, 'OCR Regex Group': `" + entryOCRRegexGroup.Text + "` or 'Scale Factor': `" + entryScaleFactor.Text + "` is not empty.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
