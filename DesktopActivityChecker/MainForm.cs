@@ -1076,7 +1076,7 @@ namespace DesktopActivityChecker
                     int noOfValidCaptures = 0;
                     for (int i = 0; i < Convert.ToInt32(formData.CapturePerInterval); i++)
                     {
-                        string[] colors = entryComparisonValue.Text.Split(',');
+                        string[] colors = formData.ComparisonValue.Split(',');
                         int timeout = Convert.ToInt32(formData.SleepBetweenCaptures) > 200 ? (Convert.ToInt32(formData.SleepBetweenCaptures) / 2 > 2000 ? Convert.ToInt32(formData.SleepBetweenCaptures) - 2000 : Convert.ToInt32(formData.SleepBetweenCaptures) / 2) : 100;
                         Image newImage = getImageFromCoordinatesOfFormData(formData, timeout);
 
