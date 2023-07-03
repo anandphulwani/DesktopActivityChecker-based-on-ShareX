@@ -1067,6 +1067,9 @@ namespace DesktopActivityChecker
                     if (isFirstRun == true)
                     {
                         isFirstRun = false;
+                        int firstCaptureAnimationTime = (int)Math.Round(Convert.ToDouble(formData.RepeatTime) / 2);
+                        firstCaptureAnimationTime = (firstCaptureAnimationTime > 10 ? 10 : firstCaptureAnimationTime) * 1000;
+                        getImageFromCoordinatesOfFormData(formData, firstCaptureAnimationTime);
                         return;
                     }
                     bool isAlert = false;
