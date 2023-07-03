@@ -1088,7 +1088,7 @@ namespace DesktopActivityChecker
                         {
                             for (int x = 0; x < bitmap.Width; x++)
                             {
-                                string pixelColor = bitmap.GetPixel(x, y).ToString();
+                                string pixelColor = ColorTranslator.ToHtml(bitmap.GetPixel(x, y));
                                 if (Array.IndexOf(colors, pixelColor) != -1)
                                 {
                                     if (formData.WaitFor == "Present" && formData.ColorMatches == "Any")
