@@ -400,7 +400,7 @@ namespace DesktopActivityChecker
                 }
             }
             endOfIfBlockLastPostRequestURL:
-            return "https://www.ntfy.sh/"; // Return default if the JSON file doesn't exist or couldn't be read
+            return "https://ntfy.sh/alert"; // Return default if the JSON file doesn't exist or couldn't be read
         }
 
         private string ReadLastPostMessageFromJson()

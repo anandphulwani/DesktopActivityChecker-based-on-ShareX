@@ -449,7 +449,7 @@ namespace DesktopActivityChecker
             this.entryPostRequestUrl.Name = "entryPostRequestUrl";
             this.entryPostRequestUrl.Size = new System.Drawing.Size(249, 20);
             this.entryPostRequestUrl.TabIndex = 18;
-            this.entryPostRequestUrl.Text = "https://www.ntfy.sh/";
+            this.entryPostRequestUrl.Text = "https://ntfy.sh/alert";
             // 
             // labelPostRequestUrl
             // 
