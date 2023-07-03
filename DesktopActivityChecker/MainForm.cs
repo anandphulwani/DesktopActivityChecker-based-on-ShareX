@@ -24,7 +24,7 @@ namespace DesktopActivityChecker
         private string lastPostRequestURL = ReadLastPostRequertURLFromJson();
         private string lastPostMessage = ReadLastPostMessageFromJson();
 
-        TimerStore timerStore = new TimerStore();
+        public TimerStore timerStore = new TimerStore();
 
         public MainForm()
         {
@@ -383,7 +383,7 @@ namespace DesktopActivityChecker
             return ""; // Return default if the JSON file doesn't exist or couldn't be read
         }
 
-        private static List<FormData> ReadExistingFormDataFromJson()
+        public List<FormData> ReadExistingFormDataFromJson()
         {
             string filePath = GetDataStorePath();
             if (File.Exists(filePath))
@@ -1321,6 +1321,24 @@ namespace DesktopActivityChecker
             notifyIcon.Visible = false;  // Hide the NotifyIcon
             Application.Exit();  // Exit the application
         }
+
+        static void RestartAllMenuItem_Click(object sender, EventArgs e)
+        {
+            List<FormData> formData = mainform.ReadExistingFormDataFromJson();
+            for (int i = 0; i < formData.Count; i++)
+            {
+                if (formData[i].Enabled)
+                {
+                    mainform.timerStore.RemoveTimer(formData[i].Id);
+                }
+            }
+            new Thread(() =>
+            {
+                Thread.Sleep(1000);
+                Thread newThread = new Thread(mainform.MonitoringService);
+                newThread.Start();
+            }).Start();
+        }
         #endregion
 
         [STAThread]
@@ -1363,6 +1381,11 @@ namespace DesktopActivityChecker
             notifyIcon.Text = "Desktop Activity Checker";
 
             ContextMenuStrip contextMenu = new ContextMenuStrip();
+            ToolStripMenuItem restartAllMenuItem = new ToolStripMenuItem();
+            restartAllMenuItem.Text = "Restart all Entries";
+            restartAllMenuItem.Click += RestartAllMenuItem_Click;
+            contextMenu.Items.Add(restartAllMenuItem);
+
             ToolStripMenuItem exitMenuItem = new ToolStripMenuItem();
             exitMenuItem.Text = "Exit";
             exitMenuItem.Click += ExitMenuItem_Click;
