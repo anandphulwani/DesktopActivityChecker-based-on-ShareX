@@ -1105,7 +1105,7 @@ namespace DesktopActivityChecker
                                 }
                             }
                         }
-                    endOfOuterLoop:
+                        endOfOuterLoop:
                         if ((formData.WaitFor == "Present" && (areColorsFound ?? false)) || (formData.WaitFor == "Not Present" && !(areColorsFound ?? true)))
                         {
                             if (formData.MatchCaptures == "Any")
