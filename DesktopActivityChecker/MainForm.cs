@@ -981,7 +981,7 @@ namespace DesktopActivityChecker
                         string capturedText = await OCRHelper.OCR((Bitmap)newImage, options.Language, float.Parse(formData.ScaleFactor), options.SingleLine);
                         Console.WriteLine("====================================================================================================");
                         Console.WriteLine("Captured Text: " + capturedText);
-                        Regex regex = new Regex(Regex.Escape(formData.OCRRegex));
+                        Regex regex = new Regex(formData.OCRRegex);
                         Match match = regex.Match(capturedText);
                         if (match.Success && match.Groups.Count > Convert.ToInt32(formData.OCRRegexGroup))
                         {
