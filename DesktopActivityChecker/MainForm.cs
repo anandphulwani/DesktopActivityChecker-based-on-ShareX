@@ -1081,7 +1081,6 @@ namespace DesktopActivityChecker
                         Image newImage = getImageFromCoordinatesOfFormData(formData, timeout);
 
                         Bitmap bitmap = new Bitmap(newImage);
-                        Color referenceColor = bitmap.GetPixel(0, 0);
                         bool? areColorsFound = null;
                         areColorsFound = formData.WaitFor == "Present" ? false : areColorsFound;
                         areColorsFound = formData.WaitFor == "Not Present" ? true : areColorsFound;
