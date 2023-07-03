@@ -842,11 +842,6 @@ namespace DesktopActivityChecker
         public void MonitoringService()
         {
             List<FormData> existingFormDataList = ReadExistingFormDataFromJson();
-            ExecuteRecordsInInterval(existingFormDataList);
-        }
-
-        public void ExecuteRecordsInInterval(List<FormData> existingFormDataList)
-        {
             for (int mainCnt = 0; mainCnt < existingFormDataList.Count; mainCnt++)
             {
                 int enabledCount = 0;
