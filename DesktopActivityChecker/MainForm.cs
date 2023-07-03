@@ -1299,7 +1299,7 @@ namespace DesktopActivityChecker
                     "    " + "Sleep between Captures: " + formData.SleepBetweenCaptures + "\n" +
                     "    " + "Capture per Interval: " + formData.CapturePerInterval + "\n" +
                     "    " + "Match Captures: " + formData.MatchCaptures + "\n";
-                StringContent content = new StringContent(formData.PostMessage + message);
+                StringContent content = new StringContent(formData.PostMessage + "\n\n" + message);
                 content.Headers.ContentType.MediaType = "text/plain";
                 client.DefaultRequestHeaders.Add("Title", "Name: " + formData.Name + " (" + formData.Id + ")");
                 // client.DefaultRequestHeaders.Add("Priority", "urgent");
