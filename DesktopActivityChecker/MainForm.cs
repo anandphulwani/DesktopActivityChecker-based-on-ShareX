@@ -363,7 +363,8 @@ namespace DesktopActivityChecker
                     }
                     else
                     {
-                        throw new Exception("JSON entries count is 0.");
+                        goto endOfIfBlockLastId;
+                        // throw new Exception("JSON entries count is 0.");
                     }
                 }
                 catch (Exception ex)
@@ -371,6 +372,7 @@ namespace DesktopActivityChecker
                     MessageBox.Show("An error occurred while reading the JSON file: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
+            endOfIfBlockLastId:
             return 0; // Return 0 if the JSON file doesn't exist or couldn't be read
         }
 
